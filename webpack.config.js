@@ -14,7 +14,11 @@ module.exports = {
     new webpack.ProvidePlugin({
       "$": "jQuery",
       "jQuery": "jQuery"
-    })
+    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   "source-map": "./dist/bundle.js.map",
+    //   "mangle": true
+    // })
   ],
   "resolve": {
     extensions: ["", ".js", ".ts"]

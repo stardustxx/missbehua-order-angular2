@@ -1,3 +1,11 @@
 <div class="container">
-  <h1>hello</h1>
+  <div *ngFor="let productCategory of productsArray" *ngIf="productCategory">
+    <h1>{{productCategory.name}}</h1>
+    <div class="card" *ngFor="let product of productCategory.products">
+      <img [src]="product" alt="" class="card-img-top">
+      <div class="card-block">
+        <p class="card-text"></p>
+      </div>
+    </div>
+  </div>
 </div>
