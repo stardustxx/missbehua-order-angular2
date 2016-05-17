@@ -9,18 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var Product_list_component_1 = require("./modules/Product-list.component");
 var NavBar_component_1 = require("./modules/NavBar.component");
 var BehuaMain = (function () {
-    function BehuaMain() {
+    function BehuaMain(router) {
+        this.router = router;
     }
+    BehuaMain.prototype.ngOnInit = function () {
+        this.router.navigate(["/products"]);
+    };
     BehuaMain = __decorate([
         core_1.Component({
             selector: "behua-main",
             templateUrl: "./app/main.html",
-            directives: [Product_list_component_1.ProductListComponent, NavBar_component_1.NavBarComponent]
-        }), 
-        __metadata('design:paramtypes', [])
+            directives: [router_1.ROUTER_DIRECTIVES, Product_list_component_1.ProductListComponent, NavBar_component_1.NavBarComponent],
+            providers: [router_1.ROUTER_PROVIDERS]
+        }),
+        router_1.Routes([
+            {
+                path: "/products",
+                component: Product_list_component_1.ProductListComponent
+            }
+        ]), 
+        __metadata('design:paramtypes', [router_1.Router])
     ], BehuaMain);
     return BehuaMain;
 }());

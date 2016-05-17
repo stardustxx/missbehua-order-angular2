@@ -26,6 +26,7 @@
     "bootstrap": "^4.0.0-alpha.2",
     "del": "^2.2.0",
     "es6-shim": "^0.35.1",
+    "font-awesome": "^4.6.1",
     "gulp": "^3.9.1",
     "gulp-beautify": "^2.0.0",
     "gulp-clean": "^0.3.2",

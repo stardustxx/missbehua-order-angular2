@@ -94,6 +94,13 @@
         "BEHU9832.jpg": "behu9800/BEHU9832.jpg",
         "BEHU9834.jpg": "behu9800/BEHU9834.jpg"
     },
+    "BF000": {
+        "BF1.jpg": "BF000/BF1.jpg",
+        "BF2.jpg": "BF000/BF2.jpg",
+        "BF3.jpg": "BF000/BF3.jpg",
+        "BF4.jpg": "BF000/BF4.jpg",
+        "BF5.jpg": "BF000/BF5.jpg"
+    },
     "behua0500": {
         "BEHUA0501.jpg": "behua0500/BEHUA0501.jpg",
         "BEHUA0502.jpg": "behua0500/BEHUA0502.jpg",
@@ -104,16 +111,6 @@
         "BEHUA0507.jpg": "behua0500/BEHUA0507.jpg",
         "BEHUA0508.jpg": "behua0500/BEHUA0508.jpg",
         "BEHUA0509.jpg": "behua0500/BEHUA0509.jpg"
-    },
-    "BF000": {
-        "BF1.jpg": "BF000/BF1.jpg",
-        "BF2.jpg": "BF000/BF2.jpg",
-        "BF3.jpg": "BF000/BF3.jpg",
-        "BF4.jpg": "BF000/BF4.jpg",
-        "BF5.jpg": "BF000/BF5.jpg"
-    },
-    "essential": {
-        "Manual.jpg": "essential/Manual.jpg"
     },
     "bhbl": {
         "bh0001.jpg": "bhbl/bh0001.jpg",
@@ -137,6 +134,9 @@
         "bh0020.jpg": "bhbl/bh0020.jpg",
         "bh0021.jpg": "bhbl/bh0021.jpg",
         "bh0023.jpg": "bhbl/bh0023.jpg"
+    },
+    "essential": {
+        "Manual.jpg": "essential/Manual.jpg"
     },
     "m": {
         "m0001.jpg": "m/m0001.jpg",
@@ -363,6 +363,31 @@
             "BEHUyingtao.jpg": "Out/EO/BEHUyingtao.jpg"
         }
     },
+    "WF1500": {
+        "WF1501.jpg": "WF1500/WF1501.jpg",
+        "WF1502.jpg": "WF1500/WF1502.jpg",
+        "WF1503.jpg": "WF1500/WF1503.jpg",
+        "WF1504.jpg": "WF1500/WF1504.jpg",
+        "WF1512.jpg": "WF1500/WF1512.jpg",
+        "WF1515.jpg": "WF1500/WF1515.jpg",
+        "WF1525.jpg": "WF1500/WF1525.jpg",
+        "WF1527.jpg": "WF1500/WF1527.jpg",
+        "WF1528.jpg": "WF1500/WF1528.jpg",
+        "WF1529.jpg": "WF1500/WF1529.jpg",
+        "WF1530.jpg": "WF1500/WF1530.jpg",
+        "WF1531.jpg": "WF1500/WF1531.jpg",
+        "WF1532.jpg": "WF1500/WF1532.jpg",
+        "WF1533.jpg": "WF1500/WF1533.jpg",
+        "WF1534.jpg": "WF1500/WF1534.jpg",
+        "WF1535.jpg": "WF1500/WF1535.jpg",
+        "WF1536.jpg": "WF1500/WF1536.jpg",
+        "WF1538.jpg": "WF1500/WF1538.jpg",
+        "WF1539.jpg": "WF1500/WF1539.jpg",
+        "WF1540.jpg": "WF1500/WF1540.jpg",
+        "WF1546.jpg": "WF1500/WF1546.jpg",
+        "WF1547.jpg": "WF1500/WF1547.jpg",
+        "WF1548.jpg": "WF1500/WF1548.jpg"
+    },
     "WF1300": {
         "BEHU1300.jpg": "WF1300/BEHU1300.jpg",
         "BEHU1302.jpg": "WF1300/BEHU1302.jpg",
@@ -476,31 +501,6 @@
         "BEHU1616.jpg": "WF1600/BEHU1616.jpg",
         "BEHU1617.jpg": "WF1600/BEHU1617.jpg"
     },
-    "WF1500": {
-        "WF1501.jpg": "WF1500/WF1501.jpg",
-        "WF1502.jpg": "WF1500/WF1502.jpg",
-        "WF1503.jpg": "WF1500/WF1503.jpg",
-        "WF1504.jpg": "WF1500/WF1504.jpg",
-        "WF1512.jpg": "WF1500/WF1512.jpg",
-        "WF1515.jpg": "WF1500/WF1515.jpg",
-        "WF1525.jpg": "WF1500/WF1525.jpg",
-        "WF1527.jpg": "WF1500/WF1527.jpg",
-        "WF1528.jpg": "WF1500/WF1528.jpg",
-        "WF1529.jpg": "WF1500/WF1529.jpg",
-        "WF1530.jpg": "WF1500/WF1530.jpg",
-        "WF1531.jpg": "WF1500/WF1531.jpg",
-        "WF1532.jpg": "WF1500/WF1532.jpg",
-        "WF1533.jpg": "WF1500/WF1533.jpg",
-        "WF1534.jpg": "WF1500/WF1534.jpg",
-        "WF1535.jpg": "WF1500/WF1535.jpg",
-        "WF1536.jpg": "WF1500/WF1536.jpg",
-        "WF1538.jpg": "WF1500/WF1538.jpg",
-        "WF1539.jpg": "WF1500/WF1539.jpg",
-        "WF1540.jpg": "WF1500/WF1540.jpg",
-        "WF1546.jpg": "WF1500/WF1546.jpg",
-        "WF1547.jpg": "WF1500/WF1547.jpg",
-        "WF1548.jpg": "WF1500/WF1548.jpg"
-    },
     "WF1700": {
         "BEHU1700.jpg": "WF1700/BEHU1700.jpg",
         "BEHU1705.jpg": "WF1700/BEHU1705.jpg",
@@ -601,15 +601,6 @@
         "WF2809.jpg": "WF1800/WF2809.jpg",
         "WF2810.jpg": "WF1800/WF2810.jpg"
     },
-    "WF300": {
-        "WF301.jpg": "WF300/WF301.jpg",
-        "WF304.jpg": "WF300/WF304.jpg",
-        "WF306.jpg": "WF300/WF306.jpg",
-        "WF308.jpg": "WF300/WF308.jpg",
-        "WF309.jpg": "WF300/WF309.jpg",
-        "WF311.jpg": "WF300/WF311.jpg",
-        "WF313.jpg": "WF300/WF313.jpg"
-    },
     "WF1900": {
         "BEHU1901.jpg": "WF1900/BEHU1901.jpg",
         "BEHU1902.jpg": "WF1900/BEHU1902.jpg",
@@ -639,5 +630,14 @@
         "BEHU1930.jpg": "WF1900/BEHU1930.jpg",
         "BEHU1980.jpg": "WF1900/BEHU1980.jpg",
         "WF1900.jpg": "WF1900/WF1900.jpg"
+    },
+    "WF300": {
+        "WF301.jpg": "WF300/WF301.jpg",
+        "WF304.jpg": "WF300/WF304.jpg",
+        "WF306.jpg": "WF300/WF306.jpg",
+        "WF308.jpg": "WF300/WF308.jpg",
+        "WF309.jpg": "WF300/WF309.jpg",
+        "WF311.jpg": "WF300/WF311.jpg",
+        "WF313.jpg": "WF300/WF313.jpg"
     }
 }
