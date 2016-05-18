@@ -90,7 +90,7 @@ var ProductListComponent = (function () {
         }
     };
     ProductListComponent.prototype.addToCart = function (product) {
-        if (product) {
+        if (product && product.amount) {
             this.cartContent[product.name] = product.amount;
         }
     };
@@ -118,4 +118,4 @@ var ProductListComponent = (function () {
     return ProductListComponent;
 }());
 exports.ProductListComponent = ProductListComponent;
-//# sourceMappingURL=Product-list.component.js.map
+//# sourceMappingURL=ProductList.component.js.map

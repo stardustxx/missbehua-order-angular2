@@ -9,22 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-var router_1 = require("@angular/router");
-var NavBarComponent = (function () {
-    function NavBarComponent(http) {
-        this.http = http;
+var CartViewComponent = (function () {
+    function CartViewComponent() {
     }
-    NavBarComponent = __decorate([
+    CartViewComponent.prototype.ngOnInit = function () {
+    };
+    CartViewComponent = __decorate([
         core_1.Component({
-            selector: "nav-bar",
-            templateUrl: "./app/modules/NavBar.html",
-            providers: [http_1.HTTP_PROVIDERS],
-            directives: [router_1.ROUTER_DIRECTIVES]
+            selector: "cart-view",
+            templateUrl: "./app/modules/Cart-View.html"
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], NavBarComponent);
-    return NavBarComponent;
+        __metadata('design:paramtypes', [])
+    ], CartViewComponent);
+    return CartViewComponent;
 }());
-exports.NavBarComponent = NavBarComponent;
-//# sourceMappingURL=NavBar.component.js.map
+exports.CartViewComponent = CartViewComponent;
+//# sourceMappingURL=CartView.component.js.map

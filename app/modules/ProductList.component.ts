@@ -102,7 +102,7 @@ export class ProductListComponent {
   }
 
   addToCart(product: any) {
-    if (product) {
+    if (product && product.amount) {
       this.cartContent[product.name] = product.amount;
     }
   }
