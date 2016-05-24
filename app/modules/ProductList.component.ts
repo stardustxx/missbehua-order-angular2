@@ -1,10 +1,5 @@
-import {
-  Component
-} from "@angular/core";
-import {
-  Http,
-  HTTP_PROVIDERS
-} from "@angular/http";
+import {Component} from "@angular/core";
+import {Http, HTTP_PROVIDERS} from "@angular/http";
 
 @Component({
   selector: "product-list",

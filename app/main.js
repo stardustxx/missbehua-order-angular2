@@ -9,34 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
 var NavBar_component_1 = require("./modules/NavBar.component");
 var ProductList_component_1 = require("./modules/ProductList.component");
-var CartView_component_1 = require("./modules/CartView.component");
+var LoginSignup_component_1 = require("./modules/LoginSignup.component");
 var BehuaMain = (function () {
-    function BehuaMain(router) {
-        this.router = router;
+    function BehuaMain() {
+        var _this = this;
+        this.isUserLoggedIn = false;
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                console.log("user", user);
+                _this.isUserLoggedIn = true;
+            }
+            else {
+                console.log("no user");
+                _this.isUserLoggedIn = false;
+            }
+        });
     }
     BehuaMain.prototype.ngOnInit = function () {
-        this.router.navigate(["/products"]);
     };
     BehuaMain = __decorate([
         core_1.Component({
             selector: "behua-main",
             templateUrl: "./app/main.html",
-            directives: [router_1.ROUTER_DIRECTIVES, ProductList_component_1.ProductListComponent, NavBar_component_1.NavBarComponent]
-        }),
-        router_1.Routes([
-            {
-                path: "/products",
-                component: ProductList_component_1.ProductListComponent
-            },
-            {
-                path: "/cart",
-                component: CartView_component_1.CartViewComponent
-            }
-        ]), 
-        __metadata('design:paramtypes', [router_1.Router])
+            directives: [ProductList_component_1.ProductListComponent, NavBar_component_1.NavBarComponent, LoginSignup_component_1.LoginSignupComponent]
+        }), 
+        __metadata('design:paramtypes', [])
     ], BehuaMain);
     return BehuaMain;
 }());

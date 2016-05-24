@@ -10,17 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var router_1 = require("@angular/router");
 var NavBarComponent = (function () {
     function NavBarComponent(http) {
         this.http = http;
     }
+    NavBarComponent.prototype.signOut = function () {
+        firebase.auth().signOut();
+    };
     NavBarComponent = __decorate([
         core_1.Component({
             selector: "nav-bar",
             templateUrl: "./app/modules/NavBar.html",
-            providers: [http_1.HTTP_PROVIDERS],
-            directives: [router_1.ROUTER_DIRECTIVES]
+            providers: [http_1.HTTP_PROVIDERS]
         }), 
         __metadata('design:paramtypes', [http_1.Http])
     ], NavBarComponent);

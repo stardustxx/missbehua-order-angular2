@@ -1,32 +1,37 @@
 import {Component, OnInit} from "@angular/core";
-import {Router, Route, Routes, ROUTER_DIRECTIVES} from "@angular/router";
 import {NavBarComponent} from "./modules/NavBar.component";
 import {ProductListComponent} from "./modules/ProductList.component";
 import {CartViewComponent} from "./modules/CartView.component";
+import {LoginSignupComponent} from "./modules/LoginSignup.component";
+
+declare var firebase: any;
 
 @Component({
   selector: "behua-main",
   templateUrl: "./app/main.html",
-  directives: [ROUTER_DIRECTIVES, ProductListComponent, NavBarComponent]
+  directives: [ProductListComponent, NavBarComponent, LoginSignupComponent]
 })
 
-@Routes([
-  {
-    path: "/products",
-    component: ProductListComponent
-  },
-  {
-    path: "/cart",
-    component: CartViewComponent
-  }
-])
+export class BehuaMain implements OnInit {
 
-export class BehuaMain implements OnInit{
-  constructor(private router: Router) {
+  isUserLoggedIn: boolean;
 
+  constructor() {
+    this.isUserLoggedIn = false;
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log("user", user);
+        this.isUserLoggedIn = true;
+      }
+      else {
+        console.log("no user");
+        this.isUserLoggedIn = false;
+      }
+    });
   }
 
   ngOnInit() {
-    this.router.navigate(["/products"]);
+
   }
+
 }
