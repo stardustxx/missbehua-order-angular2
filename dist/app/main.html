@@ -1,0 +1,9 @@
+<nav-bar></nav-bar>
+<div class="container">
+  <div class="login" *ngIf="!isUserLoggedIn">
+    <login-signup></login-signup>
+  </div>
+  <div class="products" *ngIf="isUserLoggedIn">
+    <product-list></product-list>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 <div class="product-list" *ngFor="let productCategory of productsArray" *ngIf="productCategory">
   <h1>{{productCategory.name}}</h1>
   <div class="row">
-    <div class="col-xs-12 col-sm-3" *ngFor="let product of productCategory.products">
+    <div class="col-xs-12 col-sm-4 col-md-3" *ngFor="let product of productCategory.products">
       <div class="card">
         <img [src]="product.link" alt="" class="card-img-top">
         <div class="card-block">

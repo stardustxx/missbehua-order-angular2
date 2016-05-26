@@ -4,7 +4,7 @@ declare var firebase: any;
 @Component({
   selector: "login-signup",
   templateUrl: "./app/modules/LoginSignup.html",
-  styleUrls: ["./styles/css/login-signup.css"]
+  styleUrls: ["./css/login-signup.css"]
 })
 
 export class LoginSignupComponent implements OnInit {

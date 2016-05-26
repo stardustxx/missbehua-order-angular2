@@ -1,69 +1,65 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Http, HTTP_PROVIDERS} from "@angular/http";
+
+declare var firebase: any;
 
 @Component({
   selector: "product-list",
   templateUrl: "./app/modules/Product-list.html",
-  styleUrls: ["./styles/css/product-list.css"],
+  styleUrls: ["./css/product-list.css"],
   providers: [HTTP_PROVIDERS]
 })
 
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
 
   productsListURL: string = "../../dist/products.json";
   ignoreList: Array <string> = ["Out", "essential", "MIB"];
   productsArray: Array <any> = [];
   cartContent: any = {};
 
+  firebaseStorage: any;
+  firebaseStorageRef: any;
+
   constructor(private http: Http) {
+    this.firebaseStorage = firebase.storage();
+    this.firebaseStorageRef = this.firebaseStorage.ref();
+  }
+
+  ngOnInit() {
     this.getProducts();
   }
 
   getProducts() {
-    this.http.get(this.productsListURL)
-      .map(res => res.json())
-      .subscribe(
-        products => {
-          // console.log(products);
-          this.formatProductList(products);
-          console.log(this.productsArray);
-        },
-        error => console.log(error),
-        () => console.log("Done grabbing products")
-      );
+    firebase.database().ref("products").on('value', (snapshot) => {
+      this.formatProducts(snapshot.val());
+    });
   }
 
-  /**
-   * Format product directory json into workable json
-   */
-  formatProductList(products: any) {
-    for (var prop in products) {
-      var isOut = false;
-      if (products.hasOwnProperty(prop)) {
-        for (var out in this.ignoreList) {
-          if (this.ignoreList[out] == prop) {
-            isOut = true;
-            break;
-          }
-        }
-        if (isOut) {
-          continue;
-        }
+  formatProducts(productObj: any) {
+    for (var prop in productObj) {
+      if (productObj.hasOwnProperty(prop)) {
         var productJson: any = {};
         // Category name
         productJson["name"] = prop;
         productJson["products"] = [];
-        for (var productProp in products[prop]) {
-          if (products[prop].hasOwnProperty(productProp)) {
-            var singleProduct = {
-              "name": "",
-              "amount": null,
-              "link": "",
-              "error": false
-            };
-            singleProduct.name = productProp.substr(0, productProp.length - 4);
-            singleProduct.link = "./Product/" + products[prop][productProp];
-            productJson.products.push(singleProduct);
+        // Product Key
+        for (var productKey in productObj[prop]) {
+          if (productObj[prop].hasOwnProperty(productKey)) {
+            // The actual product data
+            for (var productProp in productObj[prop][productKey]) {
+              if (productObj[prop][productKey].hasOwnProperty(productProp)) {
+                var product = productObj[prop][productKey][productProp];
+                var singleProduct = {
+                  "name": "",
+                  "amount": null,
+                  "link": "",
+                  "error": false
+                };
+                singleProduct.name = product.name;
+                singleProduct.link = product.image;
+                productJson.products.push(singleProduct);
+              }
+            }
           }
         }
         this.productsArray.push(productJson);

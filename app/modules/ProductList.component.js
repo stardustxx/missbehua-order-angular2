@@ -17,49 +17,43 @@ var ProductListComponent = (function () {
         this.ignoreList = ["Out", "essential", "MIB"];
         this.productsArray = [];
         this.cartContent = {};
-        this.getProducts();
+        this.firebaseStorage = firebase.storage();
+        this.firebaseStorageRef = this.firebaseStorage.ref();
     }
+    ProductListComponent.prototype.ngOnInit = function () {
+        this.getProducts();
+    };
     ProductListComponent.prototype.getProducts = function () {
         var _this = this;
-        this.http.get(this.productsListURL)
-            .map(function (res) { return res.json(); })
-            .subscribe(function (products) {
-            // console.log(products);
-            _this.formatProductList(products);
-            console.log(_this.productsArray);
-        }, function (error) { return console.log(error); }, function () { return console.log("Done grabbing products"); });
+        firebase.database().ref("products").on('value', function (snapshot) {
+            _this.formatProducts(snapshot.val());
+        });
     };
-    /**
-     * Format product directory json into workable json
-     */
-    ProductListComponent.prototype.formatProductList = function (products) {
-        for (var prop in products) {
-            var isOut = false;
-            if (products.hasOwnProperty(prop)) {
-                for (var out in this.ignoreList) {
-                    if (this.ignoreList[out] == prop) {
-                        isOut = true;
-                        break;
-                    }
-                }
-                if (isOut) {
-                    continue;
-                }
+    ProductListComponent.prototype.formatProducts = function (productObj) {
+        for (var prop in productObj) {
+            if (productObj.hasOwnProperty(prop)) {
                 var productJson = {};
                 // Category name
                 productJson["name"] = prop;
                 productJson["products"] = [];
-                for (var productProp in products[prop]) {
-                    if (products[prop].hasOwnProperty(productProp)) {
-                        var singleProduct = {
-                            "name": "",
-                            "amount": null,
-                            "link": "",
-                            "error": false
-                        };
-                        singleProduct.name = productProp.substr(0, productProp.length - 4);
-                        singleProduct.link = "./Product/" + products[prop][productProp];
-                        productJson.products.push(singleProduct);
+                // Product Key
+                for (var productKey in productObj[prop]) {
+                    if (productObj[prop].hasOwnProperty(productKey)) {
+                        // The actual product data
+                        for (var productProp in productObj[prop][productKey]) {
+                            if (productObj[prop][productKey].hasOwnProperty(productProp)) {
+                                var product = productObj[prop][productKey][productProp];
+                                var singleProduct = {
+                                    "name": "",
+                                    "amount": null,
+                                    "link": "",
+                                    "error": false
+                                };
+                                singleProduct.name = product.name;
+                                singleProduct.link = product.image;
+                                productJson.products.push(singleProduct);
+                            }
+                        }
                     }
                 }
                 this.productsArray.push(productJson);
@@ -110,7 +104,7 @@ var ProductListComponent = (function () {
         core_1.Component({
             selector: "product-list",
             templateUrl: "./app/modules/Product-list.html",
-            styleUrls: ["./styles/css/product-list.css"],
+            styleUrls: ["./css/product-list.css"],
             providers: [http_1.HTTP_PROVIDERS]
         }), 
         __metadata('design:paramtypes', [http_1.Http])

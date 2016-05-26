@@ -36,7 +36,7 @@ var LoginSignupComponent = (function () {
         core_1.Component({
             selector: "login-signup",
             templateUrl: "./app/modules/LoginSignup.html",
-            styleUrls: ["./styles/css/login-signup.css"]
+            styleUrls: ["./css/login-signup.css"]
         }), 
         __metadata('design:paramtypes', [])
     ], LoginSignupComponent);

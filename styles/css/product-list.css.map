@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAEI,oCAAiB,CACf,SAAS,CAAE,IAAI",
-"sources": ["../sass/product-list.scss"],
-"names": [],
-"file": "product-list.css"
-}

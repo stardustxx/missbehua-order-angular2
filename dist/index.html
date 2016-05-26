@@ -1,0 +1,42 @@
+<html>
+
+<head>
+  <base href="/">
+  <title>Missbehua Angular</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="css/project.css">
+
+  <script src="js/es6-shim.min.js"></script>
+  <script src="js/zone.js"></script>
+  <script src="js/Reflect.js"></script>
+</head>
+
+<body>
+  <behua-main>
+    Loading
+  </behua-main>
+
+  <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAtg9DN-9LGVviKZUPCoEaJdLDviEh0sP4",
+      authDomain: "missbehuafirebaseproject.firebaseapp.com",
+      databaseURL: "https://missbehuafirebaseproject.firebaseio.com",
+      storageBucket: "missbehuafirebaseproject.appspot.com",
+    };
+    firebase.initializeApp(config);
+  </script>
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/tether.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/Intl.min.js"></script>
+  <script src="js/en.js"></script>
+  <script src="js/zh.js"></script>
+  <script src="bundle.js"></script>
+</body>
+
+</html>
