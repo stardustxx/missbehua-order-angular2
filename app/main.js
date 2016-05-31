@@ -9,22 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var NavBar_component_1 = require("./modules/NavBar.component");
+var router_deprecated_1 = require("@angular/router-deprecated");
 var ProductList_component_1 = require("./modules/ProductList.component");
+var CartView_component_1 = require("./modules/CartView.component");
 var LoginSignup_component_1 = require("./modules/LoginSignup.component");
 var ControlPanel_component_1 = require("./modules/ControlPanel.component");
 var BehuaMain = (function () {
-    function BehuaMain() {
+    function BehuaMain(router) {
         var _this = this;
-        this.isUserLoggedIn = false;
+        this.router = router;
         firebase.auth().onAuthStateChanged(function (user) {
+            console.log(user);
             if (user) {
                 _this.addUserToDatabase(user);
-                _this.isUserLoggedIn = true;
+                _this.router.navigate(["Products"]);
             }
             else {
                 console.log("no user");
-                _this.isUserLoggedIn = false;
+                _this.router.navigate(["Login"]);
             }
         });
     }
@@ -41,13 +43,41 @@ var BehuaMain = (function () {
             }
         });
     };
+    BehuaMain.prototype.signOut = function () {
+        firebase.auth().signOut();
+    };
     BehuaMain = __decorate([
         core_1.Component({
             selector: "behua-main",
             templateUrl: "./app/main.html",
-            directives: [ProductList_component_1.ProductListComponent, NavBar_component_1.NavBarComponent, LoginSignup_component_1.LoginSignupComponent, ControlPanel_component_1.ControlPanelComponent]
-        }), 
-        __metadata('design:paramtypes', [])
+            directives: [router_deprecated_1.ROUTER_DIRECTIVES, LoginSignup_component_1.LoginSignupComponent, ControlPanel_component_1.ControlPanelComponent],
+            providers: [router_deprecated_1.ROUTER_PROVIDERS],
+            styleUrls: ["../css/main.css"]
+        }),
+        router_deprecated_1.RouteConfig([
+            {
+                path: "/products",
+                name: "Products",
+                component: ProductList_component_1.ProductListComponent,
+                useAsDefault: true
+            },
+            {
+                path: "/cart",
+                name: "Cart",
+                component: CartView_component_1.CartViewComponent
+            },
+            {
+                path: "/login",
+                name: "Login",
+                component: LoginSignup_component_1.LoginSignupComponent
+            },
+            {
+                path: "/dashboard",
+                name: "Dashboard",
+                component: ControlPanel_component_1.ControlPanelComponent
+            }
+        ]), 
+        __metadata('design:paramtypes', [router_deprecated_1.Router])
     ], BehuaMain);
     return BehuaMain;
 }());

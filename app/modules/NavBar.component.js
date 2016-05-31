@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var router_1 = require("@angular/router");
 var NavBarComponent = (function () {
     function NavBarComponent(http) {
         this.http = http;
@@ -21,7 +22,9 @@ var NavBarComponent = (function () {
         core_1.Component({
             selector: "nav-bar",
             templateUrl: "./app/modules/NavBar.html",
-            providers: [http_1.HTTP_PROVIDERS]
+            directives: [router_1.ROUTER_DIRECTIVES],
+            providers: [http_1.HTTP_PROVIDERS, router_1.ROUTER_PROVIDERS],
+            styleUrls: ["../../css/nav-bar.css"]
         }), 
         __metadata('design:paramtypes', [http_1.Http])
     ], NavBarComponent);

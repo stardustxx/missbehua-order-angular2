@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {NavBarComponent} from "./modules/NavBar.component";
+import {Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from "@angular/router-deprecated";
 import {ProductListComponent} from "./modules/ProductList.component";
 import {CartViewComponent} from "./modules/CartView.component";
 import {LoginSignupComponent} from "./modules/LoginSignup.component";
@@ -10,23 +10,47 @@ declare var firebase: any;
 @Component({
   selector: "behua-main",
   templateUrl: "./app/main.html",
-  directives: [ProductListComponent, NavBarComponent, LoginSignupComponent, ControlPanelComponent]
+  directives: [ROUTER_DIRECTIVES, LoginSignupComponent, ControlPanelComponent],
+  providers: [ROUTER_PROVIDERS],
+  styleUrls: ["../css/main.css"]
 })
+
+@RouteConfig([
+  {
+    path: "/products",
+    name: "Products",
+    component: ProductListComponent,
+    useAsDefault: true
+  },
+  {
+    path: "/cart",
+    name: "Cart",
+    component: CartViewComponent
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: LoginSignupComponent
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: ControlPanelComponent
+  }
+])
 
 export class BehuaMain implements OnInit {
 
-  isUserLoggedIn: boolean;
-
-  constructor() {
-    this.isUserLoggedIn = false;
+  constructor(private router: Router) {
     firebase.auth().onAuthStateChanged((user) => {
+      console.log(user);
       if (user) {
         this.addUserToDatabase(user);
-        this.isUserLoggedIn = true;
+        this.router.navigate(["Products"]);
       }
       else {
         console.log("no user");
-        this.isUserLoggedIn = false;
+        this.router.navigate(["Login"]);
       }
     });
   }
@@ -45,6 +69,10 @@ export class BehuaMain implements OnInit {
         });
       }
     });
+  }
+
+  signOut() {
+    firebase.auth().signOut();
   }
 
 }

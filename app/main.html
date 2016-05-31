@@ -1,9 +1,27 @@
-<nav-bar></nav-bar>
+<nav class="navbar navbar-dark navbar-full bg-inverse">
+  <a href="/" class="navbar-brand">
+    Home
+  </a>
+  <button class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+    &#9776;
+  </button>
+  <div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
+    <ul class="nav navbar-nav pull-xs-right">
+      <li class="nav-item">
+        <a [routerLink]="['Products']" class="nav-link">Products</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['Cart']" class="nav-link">Cart</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['Dashboard']" class="nav-link">Control Panel</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link nav-log-out" (click)="signOut()">Log out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 <div class="container">
-  <div class="login" *ngIf="!isUserLoggedIn">
-    <login-signup></login-signup>
-  </div>
-  <div class="products" *ngIf="isUserLoggedIn">
-    <product-list></product-list>
-  </div>
+  <router-outlet></router-outlet>
 </div>

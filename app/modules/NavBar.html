@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark navbar-full bg-inverse">
-  <a href="#" class="navbar-brand">
+  <a href="/" class="navbar-brand">
     Home
   </a>
   <button class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
@@ -8,13 +8,13 @@
   <div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
     <ul class="nav navbar-nav pull-xs-right">
       <li class="nav-item">
-        <a href="#" class="nav-link">Cart</a>
+        <a [routerLink]="['Cart']" class="nav-link">Cart</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Control Panel</a>
+        <a [routerLink]="['Dashboard']" class="nav-link">Control Panel</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link" (click)="signOut()">Log out</a>
+        <a class="nav-link nav-log-out" (click)="signOut()">Log out</a>
       </li>
     </ul>
   </div>
