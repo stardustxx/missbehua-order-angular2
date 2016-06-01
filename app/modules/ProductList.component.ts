@@ -1,5 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Http, HTTP_PROVIDERS} from "@angular/http";
+import {Router} from "@angular/router-deprecated";
+import {CartHelperService} from "../services/CartHelper.services";
 
 declare var firebase: any;
 
@@ -7,7 +9,7 @@ declare var firebase: any;
   selector: "product-list",
   templateUrl: "./app/modules/Product-list.html",
   styleUrls: ["./css/product-list.css"],
-  providers: [HTTP_PROVIDERS]
+  providers: [HTTP_PROVIDERS, CartHelperService]
 })
 
 export class ProductListComponent implements OnInit {
@@ -20,13 +22,15 @@ export class ProductListComponent implements OnInit {
   firebaseStorage: any;
   firebaseStorageRef: any;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private router: Router) {
     this.firebaseStorage = firebase.storage();
     this.firebaseStorageRef = this.firebaseStorage.ref();
   }
 
   ngOnInit() {
-    this.getProducts();
+    window.setTimeout(() => {
+      this.getProducts();
+    });
   }
 
   getProducts() {
@@ -110,6 +114,11 @@ export class ProductListComponent implements OnInit {
     else {
       return null;
     }
+  }
+
+  onSubmitClicked() {
+    CartHelperService.setCartItems(this.cartContent);
+    this.router.navigate(["Cart"]);
   }
 
 }

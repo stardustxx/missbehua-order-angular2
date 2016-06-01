@@ -10,9 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var router_deprecated_1 = require("@angular/router-deprecated");
+var CartHelper_services_1 = require("../services/CartHelper.services");
 var ProductListComponent = (function () {
-    function ProductListComponent(http) {
+    function ProductListComponent(http, router) {
         this.http = http;
+        this.router = router;
         this.productsListURL = "../../dist/products.json";
         this.ignoreList = ["Out", "essential", "MIB"];
         this.productsArray = [];
@@ -21,7 +24,10 @@ var ProductListComponent = (function () {
         this.firebaseStorageRef = this.firebaseStorage.ref();
     }
     ProductListComponent.prototype.ngOnInit = function () {
-        this.getProducts();
+        var _this = this;
+        window.setTimeout(function () {
+            _this.getProducts();
+        });
     };
     ProductListComponent.prototype.getProducts = function () {
         var _this = this;
@@ -100,14 +106,18 @@ var ProductListComponent = (function () {
             return null;
         }
     };
+    ProductListComponent.prototype.onSubmitClicked = function () {
+        CartHelper_services_1.CartHelperService.setCartItems(this.cartContent);
+        this.router.navigate(["Cart"]);
+    };
     ProductListComponent = __decorate([
         core_1.Component({
             selector: "product-list",
             templateUrl: "./app/modules/Product-list.html",
             styleUrls: ["./css/product-list.css"],
-            providers: [http_1.HTTP_PROVIDERS]
+            providers: [http_1.HTTP_PROVIDERS, CartHelper_services_1.CartHelperService]
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, router_deprecated_1.Router])
     ], ProductListComponent);
     return ProductListComponent;
 }());

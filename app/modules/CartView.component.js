@@ -9,15 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var CartHelper_services_1 = require("../services/CartHelper.services");
 var CartViewComponent = (function () {
     function CartViewComponent() {
     }
     CartViewComponent.prototype.ngOnInit = function () {
+        this.cartItems = CartHelper_services_1.CartHelperService.getCartItems();
+        console.log("Cart Items", this.cartItems);
     };
     CartViewComponent = __decorate([
         core_1.Component({
             selector: "cart-view",
-            templateUrl: "./app/modules/Cart-View.html"
+            templateUrl: "./app/modules/Cart-View.html",
+            providers: [CartHelper_services_1.CartHelperService]
         }), 
         __metadata('design:paramtypes', [])
     ], CartViewComponent);
