@@ -24,10 +24,9 @@ var ProductListComponent = (function () {
         this.firebaseStorageRef = this.firebaseStorage.ref();
     }
     ProductListComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        window.setTimeout(function () {
-            _this.getProducts();
-        });
+    };
+    ProductListComponent.prototype.ngAfterViewInit = function () {
+        this.getProducts();
     };
     ProductListComponent.prototype.getProducts = function () {
         var _this = this;

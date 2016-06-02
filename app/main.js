@@ -14,18 +14,17 @@ var ProductList_component_1 = require("./modules/ProductList.component");
 var CartView_component_1 = require("./modules/CartView.component");
 var LoginSignup_component_1 = require("./modules/LoginSignup.component");
 var ControlPanel_component_1 = require("./modules/ControlPanel.component");
+var Utility_services_1 = require("./services/Utility.services");
 var BehuaMain = (function () {
     function BehuaMain(router) {
         var _this = this;
         this.router = router;
         firebase.auth().onAuthStateChanged(function (user) {
-            console.log(user);
             if (user) {
                 _this.addUserToDatabase(user);
                 _this.router.navigate(["Products"]);
             }
             else {
-                console.log("no user");
                 _this.router.navigate(["Login"]);
             }
         });
@@ -33,7 +32,7 @@ var BehuaMain = (function () {
     BehuaMain.prototype.ngOnInit = function () {
     };
     BehuaMain.prototype.addUserToDatabase = function (user) {
-        var processedEmail = user.email.replace(/\./g, ",");
+        var processedEmail = Utility_services_1.UtilityService.processEmail(user.email);
         firebase.database().ref("users/" + processedEmail).on("value", function (snapshot) {
             if (snapshot.val() == null) {
                 firebase.database().ref("users/" + processedEmail).set({
@@ -51,7 +50,7 @@ var BehuaMain = (function () {
             selector: "behua-main",
             templateUrl: "./app/main.html",
             directives: [router_deprecated_1.ROUTER_DIRECTIVES, LoginSignup_component_1.LoginSignupComponent, ControlPanel_component_1.ControlPanelComponent],
-            providers: [router_deprecated_1.ROUTER_PROVIDERS],
+            providers: [router_deprecated_1.ROUTER_PROVIDERS, Utility_services_1.UtilityService],
             styleUrls: ["../css/main.css"]
         }),
         router_deprecated_1.RouteConfig([

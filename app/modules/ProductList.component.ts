@@ -28,9 +28,11 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.setTimeout(() => {
-      this.getProducts();
-    });
+    
+  }
+
+  ngAfterViewInit() {
+    this.getProducts();
   }
 
   getProducts() {

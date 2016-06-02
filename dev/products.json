@@ -43,14 +43,6 @@
         "BEHU1154.jpg": "behu1100/BEHU1154.jpg",
         "BEHU1155.jpg": "behu1100/BEHU1155.jpg"
     },
-    "behu1200": {
-        "behu1201.jpg": "behu1200/behu1201.jpg",
-        "behu1203.jpg": "behu1200/behu1203.jpg",
-        "behu1204.jpg": "behu1200/behu1204.jpg",
-        "behu1205.jpg": "behu1200/behu1205.jpg",
-        "BEHU1206.jpg": "behu1200/BEHU1206.jpg",
-        "behu1207.jpg": "behu1200/behu1207.jpg"
-    },
     "behu9700": {
         "BEHU9701.jpg": "behu9700/BEHU9701.jpg",
         "BEHU9702.jpg": "behu9700/BEHU9702.jpg",
@@ -64,6 +56,14 @@
         "BEHU9710.jpg": "behu9700/BEHU9710.jpg",
         "BEHU9711.jpg": "behu9700/BEHU9711.jpg",
         "BEHU9712.jpg": "behu9700/BEHU9712.jpg"
+    },
+    "behu1200": {
+        "behu1201.jpg": "behu1200/behu1201.jpg",
+        "behu1203.jpg": "behu1200/behu1203.jpg",
+        "behu1204.jpg": "behu1200/behu1204.jpg",
+        "behu1205.jpg": "behu1200/behu1205.jpg",
+        "BEHU1206.jpg": "behu1200/BEHU1206.jpg",
+        "behu1207.jpg": "behu1200/behu1207.jpg"
     },
     "behu9800": {
         "BEHU9801.jpg": "behu9800/BEHU9801.jpg",

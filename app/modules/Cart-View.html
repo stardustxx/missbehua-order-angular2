@@ -1,1 +1,19 @@
-<h1>Cart</h1>
+<div class="cart-view">
+  <h1>Review Cart</h1>
+  <table class="table table-inverse">
+    <thead>
+      <tr>
+        <th>物品</th>
+        <th>數量</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cartItemsArray">
+        <th scope="row">{{item.name}}</th>
+        <td>{{item.amount}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-primary" (click)="onSubmitOrderClicked()">Submit Order</button>
+</div>
