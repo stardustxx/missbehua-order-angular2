@@ -11,10 +11,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var ControlPanelComponent = (function () {
     function ControlPanelComponent() {
+        this.orderArray = [];
         this.database = firebase.database();
         this.storage = firebase.storage();
     }
     ControlPanelComponent.prototype.ngOnInit = function () {
+        this.firebaseRef = firebase.database().ref("order/all");
+    };
+    ControlPanelComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.firebaseRef.on("child_added", function (data) {
+            _this.addDataInOrder(data);
+        });
+    };
+    ControlPanelComponent.prototype.addDataInOrder = function (order) {
+        var date = new Date(order.val().date);
+        this.orderArray.push({
+            "email": order.val().email,
+            "total": order.val().total,
+            "date": date
+        });
     };
     ControlPanelComponent = __decorate([
         core_1.Component({

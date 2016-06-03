@@ -31,7 +31,7 @@
               <button type="button" class="btn btn-danger" (click)="removeFromCart(product)" *ngIf="isProductAddedToCart(product)">
                 移除
               </button>
-              <button type="button" class="btn btn-primary" (click)="addToCart(product)">
+              <button type="button" class="btn btn-primary" (click)="addToCart(product)" *ngIf="!isProductAddedToCart(product)">
                 訂購
               </button>
             </div>

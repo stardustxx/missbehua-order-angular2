@@ -6,7 +6,7 @@
     &#9776;
   </button>
   <div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
-    <ul class="nav navbar-nav pull-xs-right">
+    <ul class="nav navbar-nav pull-xs-right" *ngIf="isLoggedIn">
       <li class="nav-item">
         <a [routerLink]="['Cart']" class="nav-link">Cart</a>
       </li>

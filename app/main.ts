@@ -42,14 +42,18 @@ declare var firebase: any;
 
 export class BehuaMain implements OnInit {
 
+  isLoggedIn: boolean = false;
+
   constructor(private router: Router) {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.addUserToDatabase(user);
         this.router.navigate(["Products"]);
+        this.isLoggedIn = true;
       }
       else {
         this.router.navigate(["Login"]);
+        this.isLoggedIn = false;
       }
     });
   }

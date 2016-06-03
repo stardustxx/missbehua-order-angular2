@@ -41,12 +41,16 @@ var CartViewComponent = (function () {
     CartViewComponent.prototype.onSubmitOrderClicked = function () {
         var processedEmail = Utility_services_1.UtilityService.processEmail(this.currentUser.email);
         var newKey = firebase.database().ref("order/admin").push().key;
+        var date = new Date();
         var clientOrder = {
             "product": this.cartItems,
-            "total": this.itemTotal
+            "total": this.itemTotal,
+            "date": date.getTime()
         };
         firebase.database().ref("order").child("admin").child(processedEmail).child(newKey).set(clientOrder);
         firebase.database().ref("order").child(processedEmail).child(newKey).set(clientOrder);
+        clientOrder["email"] = this.currentUser.email;
+        firebase.database().ref("order/all").child(newKey).set(clientOrder);
         this.router.navigate(["Products"]);
     };
     CartViewComponent = __decorate([

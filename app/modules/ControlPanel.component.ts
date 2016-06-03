@@ -11,6 +11,8 @@ export class ControlPanelComponent implements OnInit {
 
   database: any;
   storage: any;
+  firebaseRef: any;
+  orderArray: Array<any> = [];
 
   constructor() {
     this.database = firebase.database();
@@ -18,36 +20,22 @@ export class ControlPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.firebaseRef = firebase.database().ref("order/all");
   }
 
-  // upload() {
-  //   for (var propi in json) {
-  //     if (json.hasOwnProperty(propi)) {
-  //       for (var propj in json[propi]) {
-  //         if (json[propi].hasOwnProperty(propj)) {
-  //           var key = propj.substr(0, propj.length - 4);
-  //           console.log("key1", key);
-  //           this.setdb(propi, propj, key);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-  //
-  // setdb(propi: string, propj: string, key: string) {
-  //   var mThis = this;
-  //   var image = this.storage.ref("products/" + propi + "/" + propj);
-  //   image.getDownloadURL().then(function(url){
-  //     var newRef = mThis.database.ref("products/" + propi + "/").push();
-  //     newRef.child(key).set({
-  //       "name": key,
-  //       "enabled": 1,
-  //       "image": url
-  //     });
-  //     console.log("key2", key);
-  //   }, function(error){
-  //     console.log(error);
-  //   });
-  // }
+  ngAfterViewInit(){
+    this.firebaseRef.on("child_added", (data) => {
+      this.addDataInOrder(data);
+    });
+  }
+
+  addDataInOrder(order: any) {
+    var date = new Date(order.val().date);
+    this.orderArray.push({
+      "email": order.val().email,
+      "total": order.val().total,
+      "date": date
+    });
+  }
+
 }

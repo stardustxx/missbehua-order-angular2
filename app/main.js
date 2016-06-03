@@ -19,13 +19,16 @@ var BehuaMain = (function () {
     function BehuaMain(router) {
         var _this = this;
         this.router = router;
+        this.isLoggedIn = false;
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 _this.addUserToDatabase(user);
                 _this.router.navigate(["Products"]);
+                _this.isLoggedIn = true;
             }
             else {
                 _this.router.navigate(["Login"]);
+                _this.isLoggedIn = false;
             }
         });
     }
