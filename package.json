@@ -8,7 +8,7 @@
     "typings": "typings",
     "postinstall": "typings install",
     "build": "webpack",
-    "play": "webpack-dev-server --inline --port 8000"
+    "play": "webpack-dev-server --port 8000"
   },
   "author": "",
   "license": "ISC",

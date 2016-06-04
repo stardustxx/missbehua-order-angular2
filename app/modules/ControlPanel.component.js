@@ -12,6 +12,8 @@ var core_1 = require("@angular/core");
 var ControlPanelComponent = (function () {
     function ControlPanelComponent() {
         this.orderArray = [];
+        this.orderDetail = {};
+        this.isShowingDetail = false;
         this.database = firebase.database();
         this.storage = firebase.storage();
     }
@@ -28,9 +30,32 @@ var ControlPanelComponent = (function () {
         var date = new Date(order.val().date);
         this.orderArray.push({
             "email": order.val().email,
+            "products": order.val().product,
             "total": order.val().total,
             "date": date
         });
+    };
+    ControlPanelComponent.prototype.onViewMoreClicked = function (item) {
+        console.log("item", item);
+        this.orderDetail["email"] = item.email;
+        this.orderDetail["products"] = [];
+        this.orderDetail["total"] = item.total;
+        this.orderDetail["date"] = item.date;
+        var products = item.products;
+        for (var prop in products) {
+            if (products.hasOwnProperty(prop)) {
+                this.orderDetail["products"].push({
+                    "name": prop,
+                    "amount": products[prop]
+                });
+            }
+        }
+        console.log("list", this.orderDetail);
+        this.isShowingDetail = true;
+    };
+    ControlPanelComponent.prototype.onBackToOrderClicked = function () {
+        this.isShowingDetail = false;
+        this.orderDetail = {};
     };
     ControlPanelComponent = __decorate([
         core_1.Component({
