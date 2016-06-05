@@ -4,18 +4,23 @@ declare var firebase: any;
 
 @Component({
   selector: "control-panel",
-  templateUrl: "./app/modules/ControlPanel.html"
+  templateUrl: "./app/modules/ControlPanel.html",
+  styleUrls: ["./css/control-panel.css"]
 })
 
 export class ControlPanelComponent implements OnInit {
 
   database: any;
   storage: any;
-  firebaseRef: any;
+  orderRef: any;
+  productRef: any;
   orderArray: Array<any> = [];
-
   orderDetail:any = {}
+  productArray: Array<any> = [];
+
   isShowingDetail: boolean = false;
+  isShowingProductTable: boolean = false;
+  isShowingUser: boolean = false;
 
   constructor() {
     this.database = firebase.database();
@@ -23,12 +28,17 @@ export class ControlPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.firebaseRef = firebase.database().ref("order/all");
+    this.orderRef = firebase.database().ref("order/all");
+    this.productRef = firebase.database().ref("products");
   }
 
   ngAfterViewInit(){
-    this.firebaseRef.on("child_added", (data) => {
+    this.orderRef.on("child_added", (data) => {
       this.addDataInOrder(data);
+    });
+
+    this.productRef.on("value", (snapshot) => {
+      this.formatProductArray(snapshot.val());
     });
   }
 
@@ -43,7 +53,6 @@ export class ControlPanelComponent implements OnInit {
   }
 
   onViewMoreClicked(item: any) {
-    console.log("item", item);
     this.orderDetail["email"] = item.email;
     this.orderDetail["products"] = [];
     this.orderDetail["total"] = item.total;
@@ -57,13 +66,35 @@ export class ControlPanelComponent implements OnInit {
         });
       }
     }
-    console.log("list", this.orderDetail);
     this.isShowingDetail = true;
+  }
+
+  formatProductArray(result: any) {
+    for (var category in result) {
+      if (result.hasOwnProperty(category)) {
+        var productsCategory = result[category];
+        for (var key in productsCategory) {
+          for (var obj in productsCategory[key]) {
+            var product = productsCategory[key][obj];
+            product["category"] = category;
+            this.productArray.push(product);
+          }
+        }
+      }
+    }
   }
 
   onBackToOrderClicked() {
     this.isShowingDetail = false;
     this.orderDetail = {};
+  }
+
+  onProductTabClicked() {
+    this.isShowingProductTable = true;
+  }
+
+  onUserTabClicked() {
+    this.isShowingUser = true;
   }
 
 }

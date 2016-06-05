@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from "@angular/router-deprecated";
+import {HomeComponent} from "./modules/Home.component";
 import {ProductListComponent} from "./modules/ProductList.component";
 import {CartViewComponent} from "./modules/CartView.component";
 import {LoginSignupComponent} from "./modules/LoginSignup.component";
@@ -11,17 +12,22 @@ declare var firebase: any;
 @Component({
   selector: "behua-main",
   templateUrl: "./app/main.html",
-  directives: [ROUTER_DIRECTIVES, LoginSignupComponent, ControlPanelComponent],
+  directives: [ROUTER_DIRECTIVES],
   providers: [ROUTER_PROVIDERS, UtilityService],
   styleUrls: ["../css/main.css"]
 })
 
 @RouteConfig([
   {
+    path: "/home",
+    name: "Home",
+    component: HomeComponent,
+    useAsDefault: true
+  },
+  {
     path: "/products",
     name: "Products",
-    component: ProductListComponent,
-    useAsDefault: true
+    component: ProductListComponent
   },
   {
     path: "/cart",
@@ -48,7 +54,7 @@ export class BehuaMain implements OnInit {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.addUserToDatabase(user);
-        this.router.navigate(["Products"]);
+        this.router.navigate(["Home"]);
         this.isLoggedIn = true;
       }
       else {

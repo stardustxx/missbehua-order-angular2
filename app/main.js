@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_deprecated_1 = require("@angular/router-deprecated");
+var Home_component_1 = require("./modules/Home.component");
 var ProductList_component_1 = require("./modules/ProductList.component");
 var CartView_component_1 = require("./modules/CartView.component");
 var LoginSignup_component_1 = require("./modules/LoginSignup.component");
@@ -23,7 +24,7 @@ var BehuaMain = (function () {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 _this.addUserToDatabase(user);
-                _this.router.navigate(["Products"]);
+                _this.router.navigate(["Home"]);
                 _this.isLoggedIn = true;
             }
             else {
@@ -52,16 +53,21 @@ var BehuaMain = (function () {
         core_1.Component({
             selector: "behua-main",
             templateUrl: "./app/main.html",
-            directives: [router_deprecated_1.ROUTER_DIRECTIVES, LoginSignup_component_1.LoginSignupComponent, ControlPanel_component_1.ControlPanelComponent],
+            directives: [router_deprecated_1.ROUTER_DIRECTIVES],
             providers: [router_deprecated_1.ROUTER_PROVIDERS, Utility_services_1.UtilityService],
             styleUrls: ["../css/main.css"]
         }),
         router_deprecated_1.RouteConfig([
             {
+                path: "/home",
+                name: "Home",
+                component: Home_component_1.HomeComponent,
+                useAsDefault: true
+            },
+            {
                 path: "/products",
                 name: "Products",
-                component: ProductList_component_1.ProductListComponent,
-                useAsDefault: true
+                component: ProductList_component_1.ProductListComponent
             },
             {
                 path: "/cart",

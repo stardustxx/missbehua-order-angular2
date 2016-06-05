@@ -13,17 +13,24 @@ var ControlPanelComponent = (function () {
     function ControlPanelComponent() {
         this.orderArray = [];
         this.orderDetail = {};
+        this.productArray = [];
         this.isShowingDetail = false;
+        this.isShowingProductTable = false;
+        this.isShowingUser = false;
         this.database = firebase.database();
         this.storage = firebase.storage();
     }
     ControlPanelComponent.prototype.ngOnInit = function () {
-        this.firebaseRef = firebase.database().ref("order/all");
+        this.orderRef = firebase.database().ref("order/all");
+        this.productRef = firebase.database().ref("products");
     };
     ControlPanelComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this.firebaseRef.on("child_added", function (data) {
+        this.orderRef.on("child_added", function (data) {
             _this.addDataInOrder(data);
+        });
+        this.productRef.on("value", function (snapshot) {
+            _this.formatProductArray(snapshot.val());
         });
     };
     ControlPanelComponent.prototype.addDataInOrder = function (order) {
@@ -36,7 +43,6 @@ var ControlPanelComponent = (function () {
         });
     };
     ControlPanelComponent.prototype.onViewMoreClicked = function (item) {
-        console.log("item", item);
         this.orderDetail["email"] = item.email;
         this.orderDetail["products"] = [];
         this.orderDetail["total"] = item.total;
@@ -50,17 +56,37 @@ var ControlPanelComponent = (function () {
                 });
             }
         }
-        console.log("list", this.orderDetail);
         this.isShowingDetail = true;
+    };
+    ControlPanelComponent.prototype.formatProductArray = function (result) {
+        for (var category in result) {
+            if (result.hasOwnProperty(category)) {
+                var productsCategory = result[category];
+                for (var key in productsCategory) {
+                    for (var obj in productsCategory[key]) {
+                        var product = productsCategory[key][obj];
+                        product["category"] = category;
+                        this.productArray.push(product);
+                    }
+                }
+            }
+        }
     };
     ControlPanelComponent.prototype.onBackToOrderClicked = function () {
         this.isShowingDetail = false;
         this.orderDetail = {};
     };
+    ControlPanelComponent.prototype.onProductTabClicked = function () {
+        this.isShowingProductTable = true;
+    };
+    ControlPanelComponent.prototype.onUserTabClicked = function () {
+        this.isShowingUser = true;
+    };
     ControlPanelComponent = __decorate([
         core_1.Component({
             selector: "control-panel",
-            templateUrl: "./app/modules/ControlPanel.html"
+            templateUrl: "./app/modules/ControlPanel.html",
+            styleUrls: ["./css/control-panel.css"]
         }), 
         __metadata('design:paramtypes', [])
     ], ControlPanelComponent);
