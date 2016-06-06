@@ -14,9 +14,11 @@ export class ControlPanelComponent implements OnInit {
   storage: any;
   orderRef: any;
   productRef: any;
+  userRef: any;
   orderArray: Array<any> = [];
   orderDetail:any = {}
   productArray: Array<any> = [];
+  userArray: Array<any> = [];
 
   isShowingDetail: boolean = false;
   isShowingProductTable: boolean = false;
@@ -28,8 +30,9 @@ export class ControlPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.orderRef = firebase.database().ref("order/all");
-    this.productRef = firebase.database().ref("products");
+    this.orderRef = this.database.ref("order/all");
+    this.productRef = this.database.ref("products");
+    this.userRef = this.database.ref("users");
   }
 
   ngAfterViewInit(){
@@ -39,6 +42,10 @@ export class ControlPanelComponent implements OnInit {
 
     this.productRef.on("value", (snapshot) => {
       this.formatProductArray(snapshot.val());
+    });
+
+    this.userRef.on("child_added", (data) => {
+      this.userArray.push(data.val());
     });
   }
 

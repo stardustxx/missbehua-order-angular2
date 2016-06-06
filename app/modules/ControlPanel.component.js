@@ -14,6 +14,7 @@ var ControlPanelComponent = (function () {
         this.orderArray = [];
         this.orderDetail = {};
         this.productArray = [];
+        this.userArray = [];
         this.isShowingDetail = false;
         this.isShowingProductTable = false;
         this.isShowingUser = false;
@@ -21,8 +22,9 @@ var ControlPanelComponent = (function () {
         this.storage = firebase.storage();
     }
     ControlPanelComponent.prototype.ngOnInit = function () {
-        this.orderRef = firebase.database().ref("order/all");
-        this.productRef = firebase.database().ref("products");
+        this.orderRef = this.database.ref("order/all");
+        this.productRef = this.database.ref("products");
+        this.userRef = this.database.ref("users");
     };
     ControlPanelComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
@@ -31,6 +33,9 @@ var ControlPanelComponent = (function () {
         });
         this.productRef.on("value", function (snapshot) {
             _this.formatProductArray(snapshot.val());
+        });
+        this.userRef.on("child_added", function (data) {
+            _this.userArray.push(data.val());
         });
     };
     ControlPanelComponent.prototype.addDataInOrder = function (order) {
