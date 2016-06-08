@@ -18,10 +18,14 @@ export class ControlPanelComponent implements OnInit {
   orderArray: Array<any> = [];
   orderDetail:any = {}
   productArray: Array<any> = [];
+  categoryArray: Array<string> = [];
   userArray: Array<any> = [];
 
-  isShowingDetail: boolean = false;
+  tabProductTitle: string = "Product Table";
+
+  isShowingOrderDetail: boolean = false;
   isShowingProductTable: boolean = false;
+  isAddingNewProduct: boolean = false;
   isShowingUser: boolean = false;
 
   constructor() {
@@ -73,11 +77,12 @@ export class ControlPanelComponent implements OnInit {
         });
       }
     }
-    this.isShowingDetail = true;
+    this.isShowingOrderDetail = true;
   }
 
   formatProductArray(result: any) {
     for (var category in result) {
+      this.categoryArray.push(category);
       if (result.hasOwnProperty(category)) {
         var productsCategory = result[category];
         for (var key in productsCategory) {
@@ -92,7 +97,7 @@ export class ControlPanelComponent implements OnInit {
   }
 
   onBackToOrderClicked() {
-    this.isShowingDetail = false;
+    this.isShowingOrderDetail = false;
     this.orderDetail = {};
   }
 
@@ -102,6 +107,16 @@ export class ControlPanelComponent implements OnInit {
 
   onUserTabClicked() {
     this.isShowingUser = true;
+  }
+
+  onBackInProductClicked() {
+    this.isAddingNewProduct = false;
+    this.tabProductTitle = "Product Table";
+  }
+
+  onAddNewProductClicked() {
+    this.isAddingNewProduct = true;
+    this.tabProductTitle = "新增產品"
   }
 
 }

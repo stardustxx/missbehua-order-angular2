@@ -12,7 +12,7 @@
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="order" role="tabpanel">
-      <div class="order" *ngIf="!isShowingDetail">
+      <div class="order" *ngIf="!isShowingOrderDetail">
         <table class="table table-inverse">
           <thead>
             <tr>
@@ -34,7 +34,7 @@
           </tbody>
         </table>
       </div>
-      <div class="order-detail" *ngIf="isShowingDetail">
+      <div class="order-detail" *ngIf="isShowingOrderDetail">
         <button class="btn btn-primary" (click)="onBackToOrderClicked()">Back</button>
         <h2>{{orderDetail.email}}</h2>
         <h3>總數：{{orderDetail.total}}</h3>
@@ -57,8 +57,16 @@
     </div>
     <div class="tab-pane" id="product" role="tabpanel">
       <div *ngIf="isShowingProductTable">
-        <h1>Product Table</h1>
-        <table class="table table-inverse">
+        <div class="row">
+          <div class="col-sm-6">
+            <h1>{{tabProductTitle}}</h1>
+          </div>
+          <div class="col-sm-6">
+            <button class="btn btn-primary" (click)="onAddNewProductClicked()" *ngIf="!isAddingNewProduct">Add</button>
+            <button class="btn btn-primary" (click)="onBackInProductClicked()" *ngIf="isAddingNewProduct">返回</button>
+          </div>
+        </div>
+        <table class="table table-inverse" *ngIf="!isAddingNewProduct">
           <thead>
             <tr>
               <th>代號</th>
@@ -75,6 +83,25 @@
             </tr>
           </tbody>
         </table>
+        <div class="product-add-new" *ngIf="isAddingNewProduct">
+          <form>
+            <fieldset class="form-group">
+              <label for="formProductName">產品名稱</label>
+              <input type="text" class="form-control">
+            </fieldset>
+            <fieldset class="form-group">
+              <label for="fromProductCategory">類別</label>
+              <select class="form-control">
+                <option *ngFor="let item of categoryArray">{{item}}</option>
+              </select>
+            </fieldset>
+            <fieldset class="form-group">
+              <label for="formProductFile">圖片上傳</label>
+              <input type="file" class="form-control-file" id="inputImageFile">
+            </fieldset>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
       </div>
     </div>
     <div class="tab-pane" id="user" role="tabpanel">

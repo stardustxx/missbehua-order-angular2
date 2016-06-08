@@ -14,9 +14,12 @@ var ControlPanelComponent = (function () {
         this.orderArray = [];
         this.orderDetail = {};
         this.productArray = [];
+        this.categoryArray = [];
         this.userArray = [];
-        this.isShowingDetail = false;
+        this.tabProductTitle = "Product Table";
+        this.isShowingOrderDetail = false;
         this.isShowingProductTable = false;
+        this.isAddingNewProduct = false;
         this.isShowingUser = false;
         this.database = firebase.database();
         this.storage = firebase.storage();
@@ -61,10 +64,11 @@ var ControlPanelComponent = (function () {
                 });
             }
         }
-        this.isShowingDetail = true;
+        this.isShowingOrderDetail = true;
     };
     ControlPanelComponent.prototype.formatProductArray = function (result) {
         for (var category in result) {
+            this.categoryArray.push(category);
             if (result.hasOwnProperty(category)) {
                 var productsCategory = result[category];
                 for (var key in productsCategory) {
@@ -78,7 +82,7 @@ var ControlPanelComponent = (function () {
         }
     };
     ControlPanelComponent.prototype.onBackToOrderClicked = function () {
-        this.isShowingDetail = false;
+        this.isShowingOrderDetail = false;
         this.orderDetail = {};
     };
     ControlPanelComponent.prototype.onProductTabClicked = function () {
@@ -86,6 +90,14 @@ var ControlPanelComponent = (function () {
     };
     ControlPanelComponent.prototype.onUserTabClicked = function () {
         this.isShowingUser = true;
+    };
+    ControlPanelComponent.prototype.onBackInProductClicked = function () {
+        this.isAddingNewProduct = false;
+        this.tabProductTitle = "Product Table";
+    };
+    ControlPanelComponent.prototype.onAddNewProductClicked = function () {
+        this.isAddingNewProduct = true;
+        this.tabProductTitle = "新增產品";
     };
     ControlPanelComponent = __decorate([
         core_1.Component({
