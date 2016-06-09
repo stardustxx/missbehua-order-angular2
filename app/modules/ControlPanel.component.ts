@@ -23,6 +23,8 @@ export class ControlPanelComponent implements OnInit {
 
   tabProductTitle: string = "Product Table";
 
+  selectedProductToDelete: any = null;
+
   isShowingOrderDetail: boolean = false;
   isShowingProductTable: boolean = false;
   isAddingNewProduct: boolean = false;
@@ -89,6 +91,7 @@ export class ControlPanelComponent implements OnInit {
           for (var obj in productsCategory[key]) {
             var product = productsCategory[key][obj];
             product["category"] = category;
+            product["key"] = key;
             this.productArray.push(product);
           }
         }
@@ -117,6 +120,16 @@ export class ControlPanelComponent implements OnInit {
   onAddNewProductClicked() {
     this.isAddingNewProduct = true;
     this.tabProductTitle = "新增產品"
+  }
+
+  onDeleteProductClicked(item: any) {
+    this.selectedProductToDelete = item;
+  }
+
+  confirmDeleteProduct() {
+    if (this.selectedProductToDelete) {
+      firebase.database().ref(this.selectedProductToDelete.category).child(this.selectedProductToDelete.key).remove();
+    }
   }
 
 }

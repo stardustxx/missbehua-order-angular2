@@ -17,6 +17,7 @@ var ControlPanelComponent = (function () {
         this.categoryArray = [];
         this.userArray = [];
         this.tabProductTitle = "Product Table";
+        this.selectedProductToDelete = null;
         this.isShowingOrderDetail = false;
         this.isShowingProductTable = false;
         this.isAddingNewProduct = false;
@@ -75,6 +76,7 @@ var ControlPanelComponent = (function () {
                     for (var obj in productsCategory[key]) {
                         var product = productsCategory[key][obj];
                         product["category"] = category;
+                        product["key"] = key;
                         this.productArray.push(product);
                     }
                 }
@@ -98,6 +100,14 @@ var ControlPanelComponent = (function () {
     ControlPanelComponent.prototype.onAddNewProductClicked = function () {
         this.isAddingNewProduct = true;
         this.tabProductTitle = "新增產品";
+    };
+    ControlPanelComponent.prototype.onDeleteProductClicked = function (item) {
+        this.selectedProductToDelete = item;
+    };
+    ControlPanelComponent.prototype.confirmDeleteProduct = function () {
+        if (this.selectedProductToDelete) {
+            firebase.database().ref(this.selectedProductToDelete.category).child(this.selectedProductToDelete.key).remove();
+        }
     };
     ControlPanelComponent = __decorate([
         core_1.Component({
