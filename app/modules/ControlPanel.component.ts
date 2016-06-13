@@ -1,11 +1,13 @@
 import {Component, OnInit} from "@angular/core";
+import {LoginSignupComponent} from "./LoginSignup.component";
 
 declare var firebase: any;
 
 @Component({
   selector: "control-panel",
   templateUrl: "./app/modules/ControlPanel.html",
-  styleUrls: ["./css/control-panel.css"]
+  styleUrls: ["./css/control-panel.css"],
+  directives: [LoginSignupComponent]
 })
 
 export class ControlPanelComponent implements OnInit {
@@ -26,9 +28,18 @@ export class ControlPanelComponent implements OnInit {
   selectedProductToDelete: any = null;
 
   isShowingOrderDetail: boolean = false;
+
   isShowingProductTable: boolean = false;
   isAddingNewProduct: boolean = false;
+
   isShowingUser: boolean = false;
+  isAddingNewUser: boolean = false;
+
+  // New Product Form
+  productName: string = "";
+  newCategory: string = "";
+  selectedCategory: string = "";
+  fileUpload: any;
 
   constructor() {
     this.database = firebase.database();
@@ -42,14 +53,25 @@ export class ControlPanelComponent implements OnInit {
   }
 
   ngAfterViewInit(){
+    this.getOrder();
+    this.getProduct();
+    this.getUser();
+  }
+
+  getOrder() {
     this.orderRef.on("child_added", (data) => {
       this.addDataInOrder(data);
     });
+  }
 
+  getProduct() {
+    this.productArray = [];
     this.productRef.on("value", (snapshot) => {
       this.formatProductArray(snapshot.val());
     });
+  }
 
+  getUser() {
     this.userRef.on("child_added", (data) => {
       this.userArray.push(data.val());
     });
@@ -122,14 +144,70 @@ export class ControlPanelComponent implements OnInit {
     this.tabProductTitle = "新增產品"
   }
 
+  onToggleEnabledClicked(item: any) {
+    item.enabled = !item.enabled;
+    var obj = {
+      "enabled": item.enabled,
+      "image": item.image,
+      "name": item.name
+    };
+    this.productRef.child(item.category).child(item.key).child(item.name).set(obj);
+  }
+
   onDeleteProductClicked(item: any) {
     this.selectedProductToDelete = item;
   }
 
   confirmDeleteProduct() {
     if (this.selectedProductToDelete) {
-      firebase.database().ref(this.selectedProductToDelete.category).child(this.selectedProductToDelete.key).remove();
+      firebase.database().ref("products").child(this.selectedProductToDelete.category).child(this.selectedProductToDelete.key).set(null);
+      this.getProduct();
     }
+  }
+
+  resetNewCategory() {
+    this.newCategory = "";
+  }
+
+  onSubmitNewProductClicked() {
+    // Check File
+    var file = (<HTMLInputElement>document.getElementById("inputImageFile")).files[0];
+    var category;
+    if (file) {
+      var fileRef;
+      if (this.newCategory) {
+        fileRef = this.storage.ref().child(this.newCategory + "/" + file.name);
+        category = this.newCategory;
+      }
+      else if (this.selectedCategory) {
+        fileRef = this.storage.ref().child(this.selectedCategory + "/" + file.name);
+        category = this.selectedCategory;
+      }
+      else {
+        return;
+      }
+
+      this.fileUpload = fileRef.put(file);
+
+      this.fileUpload.on("state_changed", (snapshot) => {
+
+      }, (error) => {
+        console.log(error);
+      }, () => {
+        var imageUrl = this.fileUpload.snapshot.downloadURL;
+        var obj = {
+          "name": this.productName,
+          "image": imageUrl,
+          "enabled": true
+        };
+        this.productRef.child(category).push().child(this.productName).set(obj);
+        this.productName = "";
+      });
+    }
+  }
+
+  onAddingNewUserClicked() {
+    this.isAddingNewUser = !this.isAddingNewUser;
   }
 
 }

@@ -15,10 +15,6 @@ export class HomeComponent implements OnInit {
 
   }
 
-  ngAfterViewInit() {
-
-  }
-
   onProductButtonClicked() {
     this.router.navigate(["Products"]);
   }

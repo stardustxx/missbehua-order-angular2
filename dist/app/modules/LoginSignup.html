@@ -8,8 +8,8 @@
       <label for="loginInput">密碼</label>
       <input type="password" class="form-control" id="formGroupdLoginPassword" placeholder="您的密碼" [(ngModel)]="userInfo.password">
     </fieldset>
-    <button type="submit" class="btn btn-primary login-button" (click)="login()">登入</button>
-    <button class="btn btn-primary login-button" (click)="signup()">注冊</button>
+    <button type="submit" class="btn btn-primary login-button" (click)="login()" *ngIf="islogin">登入</button>
+    <button class="btn btn-primary login-button" (click)="signup()" *ngIf="!islogin">注冊</button>
   </form>
   <div class="alert alert-warning login-alert" role="alert" *ngIf="errorString">
     <strong>Error!</strong> <span>{{errorString}}</span>

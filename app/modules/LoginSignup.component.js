@@ -15,6 +15,9 @@ var LoginSignupComponent = (function () {
             "email": "",
             "password": ""
         };
+        if (this.islogin == undefined) {
+            this.islogin = true;
+        }
     }
     LoginSignupComponent.prototype.ngOnInit = function () {
     };
@@ -32,6 +35,10 @@ var LoginSignupComponent = (function () {
             _this.errorString = error.message;
         });
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], LoginSignupComponent.prototype, "islogin", void 0);
     LoginSignupComponent = __decorate([
         core_1.Component({
             selector: "login-signup",

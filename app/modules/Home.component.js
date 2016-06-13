@@ -16,8 +16,6 @@ var HomeComponent = (function () {
     }
     HomeComponent.prototype.ngOnInit = function () {
     };
-    HomeComponent.prototype.ngAfterViewInit = function () {
-    };
     HomeComponent.prototype.onProductButtonClicked = function () {
         this.router.navigate(["Products"]);
     };

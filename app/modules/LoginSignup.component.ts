@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, Input} from "@angular/core";
 declare var firebase: any;
 
 @Component({
@@ -9,6 +9,8 @@ declare var firebase: any;
 
 export class LoginSignupComponent implements OnInit {
 
+  @Input() islogin: boolean;
+
   userInfo: any = {
     "email": "",
     "password": ""
@@ -17,7 +19,9 @@ export class LoginSignupComponent implements OnInit {
   errorString: string;
 
   constructor() {
-
+    if (this.islogin == undefined) {
+      this.islogin = true;
+    }
   }
 
   ngOnInit() {

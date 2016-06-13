@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var LoginSignup_component_1 = require("./LoginSignup.component");
 var ControlPanelComponent = (function () {
     function ControlPanelComponent() {
         this.orderArray = [];
@@ -22,6 +23,11 @@ var ControlPanelComponent = (function () {
         this.isShowingProductTable = false;
         this.isAddingNewProduct = false;
         this.isShowingUser = false;
+        this.isAddingNewUser = false;
+        // New Product Form
+        this.productName = "";
+        this.newCategory = "";
+        this.selectedCategory = "";
         this.database = firebase.database();
         this.storage = firebase.storage();
     }
@@ -31,13 +37,25 @@ var ControlPanelComponent = (function () {
         this.userRef = this.database.ref("users");
     };
     ControlPanelComponent.prototype.ngAfterViewInit = function () {
+        this.getOrder();
+        this.getProduct();
+        this.getUser();
+    };
+    ControlPanelComponent.prototype.getOrder = function () {
         var _this = this;
         this.orderRef.on("child_added", function (data) {
             _this.addDataInOrder(data);
         });
+    };
+    ControlPanelComponent.prototype.getProduct = function () {
+        var _this = this;
+        this.productArray = [];
         this.productRef.on("value", function (snapshot) {
             _this.formatProductArray(snapshot.val());
         });
+    };
+    ControlPanelComponent.prototype.getUser = function () {
+        var _this = this;
         this.userRef.on("child_added", function (data) {
             _this.userArray.push(data.val());
         });
@@ -101,19 +119,70 @@ var ControlPanelComponent = (function () {
         this.isAddingNewProduct = true;
         this.tabProductTitle = "新增產品";
     };
+    ControlPanelComponent.prototype.onToggleEnabledClicked = function (item) {
+        item.enabled = !item.enabled;
+        var obj = {
+            "enabled": item.enabled,
+            "image": item.image,
+            "name": item.name
+        };
+        this.productRef.child(item.category).child(item.key).child(item.name).set(obj);
+    };
     ControlPanelComponent.prototype.onDeleteProductClicked = function (item) {
         this.selectedProductToDelete = item;
     };
     ControlPanelComponent.prototype.confirmDeleteProduct = function () {
         if (this.selectedProductToDelete) {
-            firebase.database().ref(this.selectedProductToDelete.category).child(this.selectedProductToDelete.key).remove();
+            firebase.database().ref("products").child(this.selectedProductToDelete.category).child(this.selectedProductToDelete.key).set(null);
+            this.getProduct();
         }
+    };
+    ControlPanelComponent.prototype.resetNewCategory = function () {
+        this.newCategory = "";
+    };
+    ControlPanelComponent.prototype.onSubmitNewProductClicked = function () {
+        var _this = this;
+        // Check File
+        var file = document.getElementById("inputImageFile").files[0];
+        var category;
+        if (file) {
+            var fileRef;
+            if (this.newCategory) {
+                fileRef = this.storage.ref().child(this.newCategory + "/" + file.name);
+                category = this.newCategory;
+            }
+            else if (this.selectedCategory) {
+                fileRef = this.storage.ref().child(this.selectedCategory + "/" + file.name);
+                category = this.selectedCategory;
+            }
+            else {
+                return;
+            }
+            this.fileUpload = fileRef.put(file);
+            this.fileUpload.on("state_changed", function (snapshot) {
+            }, function (error) {
+                console.log(error);
+            }, function () {
+                var imageUrl = _this.fileUpload.snapshot.downloadURL;
+                var obj = {
+                    "name": _this.productName,
+                    "image": imageUrl,
+                    "enabled": true
+                };
+                _this.productRef.child(category).push().child(_this.productName).set(obj);
+                _this.productName = "";
+            });
+        }
+    };
+    ControlPanelComponent.prototype.onAddingNewUserClicked = function () {
+        this.isAddingNewUser = !this.isAddingNewUser;
     };
     ControlPanelComponent = __decorate([
         core_1.Component({
             selector: "control-panel",
             templateUrl: "./app/modules/ControlPanel.html",
-            styleUrls: ["./css/control-panel.css"]
+            styleUrls: ["./css/control-panel.css"],
+            directives: [LoginSignup_component_1.LoginSignupComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], ControlPanelComponent);
