@@ -154,6 +154,13 @@
               <button class="btn btn-primary pull-xs-right" (click)="onAddingNewUserClicked()">Add</button>
             </div>
           </div>
+          <form class="form-add-user">
+            <fieldset class="form-group">
+              <label for="email-input">Email</label>
+              <input type="email" class="form-control" placeholder="帳號" [(ngModel)]="newEmail">
+            </fieldset>
+            <button class="btn btn-primary add-email-button" (click)="onAddingEmailClicked()">新增</button>
+          </form>
           <table class="table table-inverse">
             <thead>
               <tr>

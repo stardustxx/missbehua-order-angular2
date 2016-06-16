@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {LoginSignupComponent} from "./LoginSignup.component";
+import {UtilityService} from "../services/Utility.services";
 
 declare var firebase: any;
 
@@ -40,6 +41,9 @@ export class ControlPanelComponent implements OnInit {
   newCategory: string = "";
   selectedCategory: string = "";
   fileUpload: any;
+
+  // User
+  newEmail: string = "";
 
   constructor() {
     this.database = firebase.database();
@@ -208,6 +212,22 @@ export class ControlPanelComponent implements OnInit {
 
   onAddingNewUserClicked() {
     this.isAddingNewUser = !this.isAddingNewUser;
+  }
+
+  onAddingEmailClicked() {
+    if (this.newEmail) {
+      var processedEmail = UtilityService.processEmail(this.newEmail);
+      this.userRef.child(processedEmail).on("value", (snapshot) => {
+        console.log("snap", snapshot.val());
+        if (snapshot.val() == null) {
+          firebase.database().ref("users/" + processedEmail).set({
+            "account_type": 2,
+            "email": this.newEmail,
+            "enabled": true
+          });
+        }
+      });
+    }
   }
 
 }

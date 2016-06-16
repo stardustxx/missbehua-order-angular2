@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var LoginSignup_component_1 = require("./LoginSignup.component");
+var Utility_services_1 = require("../services/Utility.services");
 var ControlPanelComponent = (function () {
     function ControlPanelComponent() {
         this.orderArray = [];
@@ -28,6 +29,8 @@ var ControlPanelComponent = (function () {
         this.productName = "";
         this.newCategory = "";
         this.selectedCategory = "";
+        // User
+        this.newEmail = "";
         this.database = firebase.database();
         this.storage = firebase.storage();
     }
@@ -176,6 +179,22 @@ var ControlPanelComponent = (function () {
     };
     ControlPanelComponent.prototype.onAddingNewUserClicked = function () {
         this.isAddingNewUser = !this.isAddingNewUser;
+    };
+    ControlPanelComponent.prototype.onAddingEmailClicked = function () {
+        var _this = this;
+        if (this.newEmail) {
+            var processedEmail = Utility_services_1.UtilityService.processEmail(this.newEmail);
+            this.userRef.child(processedEmail).on("value", function (snapshot) {
+                console.log("snap", snapshot.val());
+                if (snapshot.val() == null) {
+                    firebase.database().ref("users/" + processedEmail).set({
+                        "account_type": 2,
+                        "email": _this.newEmail,
+                        "enabled": true
+                    });
+                }
+            });
+        }
     };
     ControlPanelComponent = __decorate([
         core_1.Component({

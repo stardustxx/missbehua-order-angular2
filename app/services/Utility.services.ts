@@ -3,7 +3,7 @@ export class UtilityService {
 
   }
 
-  static processEmail(email: string) {
+  public static processEmail(email: string) {
     return email.replace(/\./g, ",");
   }
 }
