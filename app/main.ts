@@ -53,9 +53,8 @@ export class BehuaMain implements OnInit {
   constructor(private router: Router) {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.addUserToDatabase(user);
-        this.router.navigate(["Home"]);
-        this.isLoggedIn = true;
+        // this.addUserToDatabase(user);
+        this.validateUser(user);
       }
       else {
         this.router.navigate(["Login"]);
@@ -68,17 +67,31 @@ export class BehuaMain implements OnInit {
 
   }
 
-  addUserToDatabase(user: any) {
+  validateUser(user: any) {
     var processedEmail = UtilityService.processEmail(user.email);
-    firebase.database().ref("users/" + processedEmail).on("value", (snapshot) => {
-      if (snapshot.val() == null) {
-        firebase.database().ref("users/" + processedEmail).set({
-          "account_type": 2,
-          "email": user.email
-        });
+    firebase.database().ref("users").child(processedEmail).on("value", (snapshot) => {
+      if (snapshot.val() != null) {
+        this.router.navigate(["Home"]);
+        this.isLoggedIn = true;
+      }
+      else {
+        this.signOut();
       }
     });
   }
+
+  // addUserToDatabase(user: any) {
+  //   var processedEmail = UtilityService.processEmail(user.email);
+  //   firebase.database().ref("users/" + processedEmail).on("value", (snapshot) => {
+  //     if (snapshot.val() == null) {
+  //       firebase.database().ref("users/" + processedEmail).set({
+  //         "account_type": 2,
+  //         "email": user.email,
+  //         "enabled": true
+  //       });
+  //     }
+  //   });
+  // }
 
   signOut() {
     firebase.auth().signOut();

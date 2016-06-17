@@ -34,7 +34,7 @@ export class ControlPanelComponent implements OnInit {
   isAddingNewProduct: boolean = false;
 
   isShowingUser: boolean = false;
-  isAddingNewUser: boolean = false;
+  selectedUserToDelete: any = null;
 
   // New Product Form
   productName: string = "";
@@ -210,10 +210,6 @@ export class ControlPanelComponent implements OnInit {
     }
   }
 
-  onAddingNewUserClicked() {
-    this.isAddingNewUser = !this.isAddingNewUser;
-  }
-
   onAddingEmailClicked() {
     if (this.newEmail) {
       var processedEmail = UtilityService.processEmail(this.newEmail);
@@ -225,9 +221,20 @@ export class ControlPanelComponent implements OnInit {
             "email": this.newEmail,
             "enabled": true
           });
+          this.newEmail = "";
         }
       });
     }
+  }
+
+  onDeleteUserClicked(user: any) {
+    this.selectedUserToDelete = user;
+  }
+
+  onConfirmDeleteUser() {
+    var processedEmail = UtilityService.processEmail(this.selectedUserToDelete.email);
+    this.userRef.child(processedEmail).set(null);
+    this.getUser();
   }
 
 }

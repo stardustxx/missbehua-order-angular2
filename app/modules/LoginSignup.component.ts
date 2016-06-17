@@ -9,7 +9,7 @@ declare var firebase: any;
 
 export class LoginSignupComponent implements OnInit {
 
-  @Input() islogin: boolean;
+  database: any;
 
   userInfo: any = {
     "email": "",
@@ -19,9 +19,7 @@ export class LoginSignupComponent implements OnInit {
   errorString: string;
 
   constructor() {
-    if (this.islogin == undefined) {
-      this.islogin = true;
-    }
+    this.database = firebase.database();
   }
 
   ngOnInit() {
@@ -29,9 +27,13 @@ export class LoginSignupComponent implements OnInit {
   }
 
   login() {
-    this.errorString = null;
     firebase.auth().signInWithEmailAndPassword(this.userInfo.email, this.userInfo.password).catch((error) => {
-      this.errorString = error.message;
+      if (error.code == "auth/user-not-found") {
+        this.signup();
+      }
+      else {
+        this.errorString = error.message;
+      }
     });
   }
 
@@ -39,6 +41,6 @@ export class LoginSignupComponent implements OnInit {
     this.errorString = null;
     firebase.auth().createUserWithEmailAndPassword(this.userInfo.email, this.userInfo.password).catch((error) => {
       this.errorString = error.message;
-    })
+    });
   }
 }

@@ -24,7 +24,7 @@ var ControlPanelComponent = (function () {
         this.isShowingProductTable = false;
         this.isAddingNewProduct = false;
         this.isShowingUser = false;
-        this.isAddingNewUser = false;
+        this.selectedUserToDelete = null;
         // New Product Form
         this.productName = "";
         this.newCategory = "";
@@ -177,9 +177,6 @@ var ControlPanelComponent = (function () {
             });
         }
     };
-    ControlPanelComponent.prototype.onAddingNewUserClicked = function () {
-        this.isAddingNewUser = !this.isAddingNewUser;
-    };
     ControlPanelComponent.prototype.onAddingEmailClicked = function () {
         var _this = this;
         if (this.newEmail) {
@@ -192,9 +189,18 @@ var ControlPanelComponent = (function () {
                         "email": _this.newEmail,
                         "enabled": true
                     });
+                    _this.newEmail = "";
                 }
             });
         }
+    };
+    ControlPanelComponent.prototype.onDeleteUserClicked = function (user) {
+        this.selectedUserToDelete = user;
+    };
+    ControlPanelComponent.prototype.onConfirmDeleteUser = function () {
+        var processedEmail = Utility_services_1.UtilityService.processEmail(this.selectedUserToDelete.email);
+        this.userRef.child(processedEmail).set(null);
+        this.getUser();
     };
     ControlPanelComponent = __decorate([
         core_1.Component({

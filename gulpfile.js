@@ -23,7 +23,8 @@ gulp.task("move-dev-dep-js", function(){
     "./node_modules/bootstrap/dist/js/bootstrap.min.js",
     "./node_modules/intl/dist/Intl.min.js",
     "./node_modules/intl/locale-data/jsonp/en.js",
-    "./node_modules/intl/locale-data/jsonp/zh.js"
+    "./node_modules/intl/locale-data/jsonp/zh.js",
+    "./node_modules/firebase/firebase.js"
   ])
   .pipe(gulp.dest("./dev/js/"));
 });
@@ -67,7 +68,8 @@ gulp.task("move-dist-dep-js", function(){
     "./node_modules/bootstrap/dist/js/bootstrap.min.js",
     "./node_modules/intl/dist/Intl.min.js",
     "./node_modules/intl/locale-data/jsonp/en.js",
-    "./node_modules/intl/locale-data/jsonp/zh.js"
+    "./node_modules/intl/locale-data/jsonp/zh.js",
+    "./node_modules/firebase/firebase.js"
   ])
   .pipe(gulp.dest("./dist/js/"));
 });

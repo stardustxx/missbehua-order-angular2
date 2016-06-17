@@ -130,10 +130,10 @@
               <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title">Delete Item</h4>
+              <h4 class="modal-title">Delete Product</h4>
             </div>
             <div class="modal-body">
-              確定要移除該產品嗎
+              確定要移除該產品嗎?
             </div>
             <div class="modal-footer">
               <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
@@ -145,48 +145,47 @@
     </div>
     <div class="tab-pane" id="user" role="tabpanel">
       <div *ngIf="isShowingUser">
-        <div *ngIf="!isAddingNewUser">
-          <div class="row">
-            <div class="col-sm-6">
-              <h1>使用者</h1>
-            </div>
-            <div class="col-sm-6">
-              <button class="btn btn-primary pull-xs-right" (click)="onAddingNewUserClicked()">Add</button>
+        <h1>使用者</h1>
+        <form class="form-add-user">
+          <fieldset class="form-group">
+            <label for="email-input">Email</label>
+            <input type="email" class="form-control" placeholder="帳號" [(ngModel)]="newEmail">
+          </fieldset>
+          <button class="btn btn-primary add-email-button" (click)="onAddingEmailClicked()">新增</button>
+        </form>
+        <table class="table table-inverse">
+          <thead>
+            <tr>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userArray">
+              <th scope="row">{{user.email}}</th>
+              <td>
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#delete-user-modal" (click)="onDeleteUserClicked(user)" *ngIf="user.account_type != 1">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="modal fade" id="delete-user-modal">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Delete User</h4>
+              </div>
+              <div class="modal-body">
+                確認移除該用戶嗎？
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="button" data-dismiss="modal" (click)="onConfirmDeleteUser()">Delete</button>
+              </div>
             </div>
           </div>
-          <form class="form-add-user">
-            <fieldset class="form-group">
-              <label for="email-input">Email</label>
-              <input type="email" class="form-control" placeholder="帳號" [(ngModel)]="newEmail">
-            </fieldset>
-            <button class="btn btn-primary add-email-button" (click)="onAddingEmailClicked()">新增</button>
-          </form>
-          <table class="table table-inverse">
-            <thead>
-              <tr>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of userArray">
-                <th scope="row">{{item.email}}</th>
-                <!-- <td>
-                <button class="btn btn-primary">查看</button>
-              </td> -->
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div *ngIf="isAddingNewUser">
-          <div class="row">
-            <div class="col-sm-6">
-              <h1>注冊使用者</h1>
-            </div>
-            <div class="col-sm-6">
-              <button class="btn btn-primary pull-xs-right" (click)="onAddingNewUserClicked()">Back</button>
-            </div>
-          </div>
-          <login-signup [islogin]="false"></login-signup>
         </div>
       </div>
     </div>

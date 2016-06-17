@@ -23,9 +23,8 @@ var BehuaMain = (function () {
         this.isLoggedIn = false;
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                _this.addUserToDatabase(user);
-                _this.router.navigate(["Home"]);
-                _this.isLoggedIn = true;
+                // this.addUserToDatabase(user);
+                _this.validateUser(user);
             }
             else {
                 _this.router.navigate(["Login"]);
@@ -35,17 +34,31 @@ var BehuaMain = (function () {
     }
     BehuaMain.prototype.ngOnInit = function () {
     };
-    BehuaMain.prototype.addUserToDatabase = function (user) {
+    BehuaMain.prototype.validateUser = function (user) {
+        var _this = this;
         var processedEmail = Utility_services_1.UtilityService.processEmail(user.email);
-        firebase.database().ref("users/" + processedEmail).on("value", function (snapshot) {
-            if (snapshot.val() == null) {
-                firebase.database().ref("users/" + processedEmail).set({
-                    "account_type": 2,
-                    "email": user.email
-                });
+        firebase.database().ref("users").child(processedEmail).on("value", function (snapshot) {
+            if (snapshot.val() != null) {
+                _this.router.navigate(["Home"]);
+                _this.isLoggedIn = true;
+            }
+            else {
+                _this.signOut();
             }
         });
     };
+    // addUserToDatabase(user: any) {
+    //   var processedEmail = UtilityService.processEmail(user.email);
+    //   firebase.database().ref("users/" + processedEmail).on("value", (snapshot) => {
+    //     if (snapshot.val() == null) {
+    //       firebase.database().ref("users/" + processedEmail).set({
+    //         "account_type": 2,
+    //         "email": user.email,
+    //         "enabled": true
+    //       });
+    //     }
+    //   });
+    // }
     BehuaMain.prototype.signOut = function () {
         firebase.auth().signOut();
     };

@@ -15,17 +15,19 @@ var LoginSignupComponent = (function () {
             "email": "",
             "password": ""
         };
-        if (this.islogin == undefined) {
-            this.islogin = true;
-        }
+        this.database = firebase.database();
     }
     LoginSignupComponent.prototype.ngOnInit = function () {
     };
     LoginSignupComponent.prototype.login = function () {
         var _this = this;
-        this.errorString = null;
         firebase.auth().signInWithEmailAndPassword(this.userInfo.email, this.userInfo.password).catch(function (error) {
-            _this.errorString = error.message;
+            if (error.code == "auth/user-not-found") {
+                _this.signup();
+            }
+            else {
+                _this.errorString = error.message;
+            }
         });
     };
     LoginSignupComponent.prototype.signup = function () {
@@ -35,10 +37,6 @@ var LoginSignupComponent = (function () {
             _this.errorString = error.message;
         });
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Boolean)
-    ], LoginSignupComponent.prototype, "islogin", void 0);
     LoginSignupComponent = __decorate([
         core_1.Component({
             selector: "login-signup",
