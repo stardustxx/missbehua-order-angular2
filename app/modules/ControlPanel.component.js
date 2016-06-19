@@ -151,11 +151,11 @@ var ControlPanelComponent = (function () {
         if (file) {
             var fileRef;
             if (this.newCategory) {
-                fileRef = this.storage.ref().child(this.newCategory + "/" + file.name);
+                fileRef = this.storage.ref().child("products").child(this.newCategory + "/" + file.name);
                 category = this.newCategory;
             }
             else if (this.selectedCategory) {
-                fileRef = this.storage.ref().child(this.selectedCategory + "/" + file.name);
+                fileRef = this.storage.ref().child("products").child(this.selectedCategory + "/" + file.name);
                 category = this.selectedCategory;
             }
             else {

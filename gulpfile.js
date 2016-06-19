@@ -10,7 +10,7 @@ var concat = require("gulp-concat");
 var del = require("del");
 
 // gulp.task("build", gulpSequence("directoryMap"));
-gulp.task("build-dist", ["directoryMap", "move-html", "move-dist-dep-js", "build-dist-dep-css", "move-view-css"]);
+gulp.task("build-dist", ["move-html", "move-dist-dep-js", "build-dist-dep-css", "move-view-css"]);
 gulp.task("build-dev", ["move-dev-dep-js", "build-dev-css"]);
 
 gulp.task("move-dev-dep-js", function(){
@@ -39,14 +39,14 @@ gulp.task("build-dev-css", function(){
   .pipe(gulp.dest("./dev/css/"));
 });
 
-gulp.task("directoryMap", function(){
-  return gulp.src("./Product/**/*.jpg")
-    .pipe(directoryMap({
-      filename: "products.json"
-    }))
-    .pipe(beautify({indentSize: 1}))
-    .pipe(gulp.dest("./dev/"));
-});
+// gulp.task("directoryMap", function(){
+//   return gulp.src("./Product/**/*.jpg")
+//     .pipe(directoryMap({
+//       filename: "products.json"
+//     }))
+//     .pipe(beautify({indentSize: 1}))
+//     .pipe(gulp.dest("./dev/"));
+// });
 
 gulp.task("move-view-css", function(){
   return gulp.src("./css/**/*")
