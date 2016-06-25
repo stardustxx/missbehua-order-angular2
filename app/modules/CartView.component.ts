@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {CartHelperService} from "../services/CartHelper.services";
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 import {UtilityService} from "../services/Utility.services";
 
 declare var firebase: any;
@@ -61,6 +61,6 @@ export class CartViewComponent implements OnInit {
     clientOrder["email"] = this.currentUser.email;
     firebase.database().ref("order/all").child(newKey).set(clientOrder);
 
-    this.router.navigate(["Products"]);
+    this.router.navigate(["/products"]);
   }
 }

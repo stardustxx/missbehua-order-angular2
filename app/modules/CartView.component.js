@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var CartHelper_services_1 = require("../services/CartHelper.services");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
 var Utility_services_1 = require("../services/Utility.services");
 var CartViewComponent = (function () {
     function CartViewComponent(router) {
@@ -51,7 +51,7 @@ var CartViewComponent = (function () {
         firebase.database().ref("order").child(processedEmail).child(newKey).set(clientOrder);
         clientOrder["email"] = this.currentUser.email;
         firebase.database().ref("order/all").child(newKey).set(clientOrder);
-        this.router.navigate(["Products"]);
+        this.router.navigate(["/products"]);
     };
     CartViewComponent = __decorate([
         core_1.Component({
@@ -59,7 +59,7 @@ var CartViewComponent = (function () {
             templateUrl: "./app/modules/Cart-View.html",
             providers: [CartHelper_services_1.CartHelperService, Utility_services_1.UtilityService]
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router])
+        __metadata('design:paramtypes', [router_1.Router])
     ], CartViewComponent);
     return CartViewComponent;
 }());

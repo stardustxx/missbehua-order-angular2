@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 
 @Component({
   selector: "home",
@@ -16,11 +16,11 @@ export class HomeComponent implements OnInit {
   }
 
   onProductButtonClicked() {
-    this.router.navigate(["Products"]);
+    this.router.navigate(["/products"]);
   }
 
   onOrderButtonClicked() {
-    this.router.navigate(["Dashboard"]);
+    this.router.navigate(["/dashboard"]);
   }
 
 }

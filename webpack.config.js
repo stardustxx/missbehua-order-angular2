@@ -1,4 +1,5 @@
 var webpack = require("webpack");
+var HtmlwebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   "entry": {
@@ -15,10 +16,10 @@ module.exports = {
       "$": "jQuery",
       "jQuery": "jQuery"
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      "source-map": "./dist/bundle.js.map",
-      "mangle": true
-    })
+    // new webpack.optimize.UglifyJsPlugin({
+    //   "source-map": "./dist/bundle.js.map",
+    //   "mangle": true
+    // })
   ],
   "resolve": {
     extensions: ["", ".js", ".ts"]

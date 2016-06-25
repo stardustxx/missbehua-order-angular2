@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Http, HTTP_PROVIDERS} from "@angular/http";
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 import {CartHelperService} from "../services/CartHelper.services";
 
 declare var firebase: any;
@@ -22,23 +22,29 @@ export class ProductListComponent implements OnInit {
   firebaseStorage: any;
   firebaseStorageRef: any;
 
+  productRef: any;
+  productListener: any;
+
   constructor(private http: Http, private router: Router) {
+    this.productRef = firebase.database().ref("products");
     this.firebaseStorage = firebase.storage();
     this.firebaseStorageRef = this.firebaseStorage.ref();
+
+    this.productListener = (snapshot) => {
+      this.formatProducts(snapshot.val());
+    };
   }
 
   ngOnInit() {
-
+    this.productRef.on('value', this.productListener);
   }
 
   ngAfterViewInit() {
-    this.getProducts();
   }
 
-  getProducts() {
-    firebase.database().ref("products").on('value', (snapshot) => {
-      this.formatProducts(snapshot.val());
-    });
+  ngOnDestroy() {
+    this.productRef.off();
+    console.log("product list destroy");
   }
 
   formatProducts(productObj: any) {
@@ -120,7 +126,7 @@ export class ProductListComponent implements OnInit {
 
   onSubmitClicked() {
     CartHelperService.setCartItems(this.cartContent);
-    this.router.navigate(["Cart"]);
+    this.router.navigate(["/cart"]);
   }
 
 }

@@ -10,29 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
 var CartHelper_services_1 = require("../services/CartHelper.services");
 var ProductListComponent = (function () {
     function ProductListComponent(http, router) {
+        var _this = this;
         this.http = http;
         this.router = router;
         this.productsListURL = "../../dist/products.json";
         this.ignoreList = ["Out", "essential", "MIB"];
         this.productsArray = [];
         this.cartContent = {};
+        this.productRef = firebase.database().ref("products");
         this.firebaseStorage = firebase.storage();
         this.firebaseStorageRef = this.firebaseStorage.ref();
+        this.productListener = function (snapshot) {
+            _this.formatProducts(snapshot.val());
+        };
     }
     ProductListComponent.prototype.ngOnInit = function () {
+        this.productRef.on('value', this.productListener);
     };
     ProductListComponent.prototype.ngAfterViewInit = function () {
-        this.getProducts();
     };
-    ProductListComponent.prototype.getProducts = function () {
-        var _this = this;
-        firebase.database().ref("products").on('value', function (snapshot) {
-            _this.formatProducts(snapshot.val());
-        });
+    ProductListComponent.prototype.ngOnDestroy = function () {
+        this.productRef.off();
+        console.log("product list destroy");
     };
     ProductListComponent.prototype.formatProducts = function (productObj) {
         for (var prop in productObj) {
@@ -107,7 +110,7 @@ var ProductListComponent = (function () {
     };
     ProductListComponent.prototype.onSubmitClicked = function () {
         CartHelper_services_1.CartHelperService.setCartItems(this.cartContent);
-        this.router.navigate(["Cart"]);
+        this.router.navigate(["/cart"]);
     };
     ProductListComponent = __decorate([
         core_1.Component({
@@ -116,7 +119,7 @@ var ProductListComponent = (function () {
             styleUrls: ["./css/product-list.css"],
             providers: [http_1.HTTP_PROVIDERS, CartHelper_services_1.CartHelperService]
         }), 
-        __metadata('design:paramtypes', [http_1.Http, router_deprecated_1.Router])
+        __metadata('design:paramtypes', [http_1.Http, router_1.Router])
     ], ProductListComponent);
     return ProductListComponent;
 }());

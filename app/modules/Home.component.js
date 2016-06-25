@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
 var HomeComponent = (function () {
     function HomeComponent(router) {
         this.router = router;
@@ -17,17 +17,17 @@ var HomeComponent = (function () {
     HomeComponent.prototype.ngOnInit = function () {
     };
     HomeComponent.prototype.onProductButtonClicked = function () {
-        this.router.navigate(["Products"]);
+        this.router.navigate(["/products"]);
     };
     HomeComponent.prototype.onOrderButtonClicked = function () {
-        this.router.navigate(["Dashboard"]);
+        this.router.navigate(["/dashboard"]);
     };
     HomeComponent = __decorate([
         core_1.Component({
             selector: "home",
             templateUrl: "./app/modules/Home.html"
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router])
+        __metadata('design:paramtypes', [router_1.Router])
     ], HomeComponent);
     return HomeComponent;
 }());

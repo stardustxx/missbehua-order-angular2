@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark navbar-full bg-inverse">
-  <a href="/" class="navbar-brand">
+  <a [routerLink]="['/home']" class="navbar-brand">
     Home
   </a>
   <button class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
@@ -8,10 +8,10 @@
   <div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
     <ul class="nav navbar-nav pull-xs-right" *ngIf="isLoggedIn">
       <li class="nav-item">
-        <a [routerLink]="['Products']" class="nav-link">Products</a>
+        <a [routerLink]="['/products']" class="nav-link">Products</a>
       </li>
       <li class="nav-item">
-        <a [routerLink]="['Dashboard']" class="nav-link">Control Panel</a>
+        <a [routerLink]="['/dashboard']" class="nav-link">Control Panel</a>
       </li>
       <li class="nav-item">
         <a class="nav-link nav-log-out" (click)="signOut()">Log out</a>
